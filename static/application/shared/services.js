@@ -135,4 +135,25 @@ angular.module('manager.services', ['ngResource'])
                 request.send(data);
             }
         };
+    })
+    .factory('ContainerStatus', function() {
+        return { get: function(d) {
+                var statusTimeRegex = /^Up(.+?)(?:\((.+?)\))?$/;
+                var match = statusTimeRegex.exec(d.Status);
+
+                // Returns the container status (Pasues, Running, etc..) and the status time
+                var res = { time: match[1].trim(),
+                            status: match[2] || 'Running' };
+                return res;
+        } };
+    })
+    .factory('Popover', function() {
+        return { show: function(data) {
+                   $(data['element']).webuiPopover({
+                        title: data['title'],
+                        content: data['content'],
+                        animation: 'pop',
+                        trigger: 'hover'
+                   });
+        } };
     });
