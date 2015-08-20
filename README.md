@@ -23,7 +23,9 @@ Forks and contributions are more than welcome!
     * [webui-popover](https://github.com/sandywalker/webui-popover)
 
 ### Todo:
-* Support for Swarm, Registry,etc.
+* Complete the Dashboard, Images section.
+* Support for Registry (and complete the Registry section afterwards).
+* Support for Swarm (?).
 * More options for launching an image (should be as similar as possible to the CLI).
 * Image search.
 * Containerize the application.
