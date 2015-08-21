@@ -138,12 +138,18 @@ angular.module('manager.services', ['ngResource'])
     })
     .factory('ContainerStatus', function() {
         return { get: function(d) {
-                var statusTimeRegex = /^Up(.+?)(?:\((.+?)\))?$/;
-                var match = statusTimeRegex.exec(d.Status);
+                var UpStatusRegex = /^Up(.+?)(?:\((.+?)\))?$/;
+                var ExitedStatusRegex = /^Exited\s+\(\w+\)(.+)$/;
+                var match = [];
+                var res = {};
 
-                // Returns the container status (Pasues, Running, etc..) and the status time
-                var res = { time: match[1].trim(),
+                 if (match = UpStatusRegex.exec(d.Status)) {
+                    res = { time: match[1].trim(),
                             status: match[2] || 'Running' };
+                 } else if (match = ExitedStatusRegex.exec(d.Status)) {
+                    res = { time: match[1].trim(),
+                            status: "Exited" };
+                 }
                 return res;
         } };
     })

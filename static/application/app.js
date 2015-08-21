@@ -1,4 +1,4 @@
-angular.module('manager',['ngRoute','ngResource','manager.services','manager.navbar','manager.dashboard'])
+angular.module('manager',['ngRoute','ngResource','manager.services','manager.filters','manager.navbar','manager.dashboard'])
  .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/', {

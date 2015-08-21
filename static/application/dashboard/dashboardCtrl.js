@@ -38,8 +38,10 @@ angular.module('manager.dashboard',[])
      /* End of Images creation trend chart population */
 
 
-    /* Containers chart */
-    Container.query( function(d) {
+    /* Containers chart and table */
+    $scope.containers = [];
+    Container.query({ all: 1}, function(d) {
+        $scope.containers = d;
         var datamap = {};
         var data = [];
 
@@ -52,7 +54,6 @@ angular.module('manager.dashboard',[])
             }
         });
         angular.forEach(datamap, function(v,k) {
-                console.log(v);
                data.push({ label: k, value: v });
         } );
         new Morris.Donut({
@@ -67,5 +68,5 @@ angular.module('manager.dashboard',[])
                    content: 'This graph shows the status of the current active containers.<br/></br>' +
                             '<b>Containers:</b> Docker containers are similar to a directory. A Docker container holds everything that is needed for an application to run. Each container is created from a Docker image. Docker containers can be run, started, stopped, moved, and deleted. Each container is an isolated and secure application platform. Docker containers are the run component of Docker.' });
 
-   /* End of Containers chart */
+   /* End of Containers chart and table */
   } ]);
