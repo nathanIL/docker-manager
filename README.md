@@ -22,6 +22,6 @@ Forks and contributions are more than welcome!
     * [webui-popover](https://github.com/sandywalker/webui-popover)
 
 ### Todo:
-Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
+Please check the [issues section](https://github.com/nathanIL/docker-manager/issues)
 
 
