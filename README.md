@@ -29,6 +29,7 @@ Forks and contributions are more than welcome!
 * More options for launching an image (should be as similar as possible to the CLI).
 * Image search.
 * Containerize the application.
+* User based containers (?).
 * Unit tests.
 * Use bower or grunt for javascript dependencies.
 
