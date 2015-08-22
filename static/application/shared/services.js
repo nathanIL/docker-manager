@@ -137,6 +137,12 @@ angular.module('manager.services', ['ngResource'])
         };
     })
     .factory('ContainerStatus', function() {
+        'use strict';
+        /* Based on Docker's element Status, returns an object holding:
+            1. Time since container has started
+            2. The status string (Exited, Running, Paused)
+            3. Next available options (e.g: If Paused ==> Unpause. Started ==> Stop,Pause,Kill,...).
+        */
         return { get: function(d) {
                 var UpStatusRegex = /^Up(.+?)(?:\((.+?)\))?$/;
                 var ExitedStatusRegex = /^Exited\s+\(\w+\)(.+)$/;
@@ -145,15 +151,19 @@ angular.module('manager.services', ['ngResource'])
 
                  if (match = UpStatusRegex.exec(d.Status)) {
                     res = { time: match[1].trim(),
-                            status: match[2] || 'Running' };
+                            status: match[2] || 'Running',
+                            actions: match[2] == 'Paused' ? ['Unpause'] : ['Stop','Kill','Pause'] };
+
                  } else if (match = ExitedStatusRegex.exec(d.Status)) {
                     res = { time: match[1].trim(),
-                            status: "Exited" };
+                            status: 'Exited',
+                            actions: ['Remove']};
                  }
                 return res;
         } };
     })
     .factory('Popover', function() {
+        'use strict';
         return { show: function(data) {
                    $(data['element']).webuiPopover({
                         title: data['title'],
