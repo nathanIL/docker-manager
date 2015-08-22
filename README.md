@@ -1,5 +1,4 @@
 ## docker-manager
-
 docker-manager is a web interface for the Docker Remote API and the Docker Registry API.
 This project is currently in development and far from being usable, it is somewhat influenced by _startbootstrap-sb-admin_ and _dockerui_ projects (thanks!).
 
@@ -23,13 +22,6 @@ Forks and contributions are more than welcome!
     * [webui-popover](https://github.com/sandywalker/webui-popover)
 
 ### Todo:
-* Complete the Dashboard, Images section.
-* Support for Registry (and complete the Registry section afterwards).
-* Support for Swarm (?).
-* More options for launching an image (should be as similar as possible to the CLI).
-* Image search.
-* Containerize the application.
-* User based containers (?).
-* Unit tests.
-* Use bower or grunt for javascript dependencies.
+Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
+
 
