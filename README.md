@@ -5,9 +5,7 @@ This project is currently in development and far from being usable, it is somewh
 Forks and contributions are more than welcome!
 
 ### Goals
-* Support all Docker Remote API from within the web UI.
-* Support for all Docker Registry HTTP API.
-* Support for Swarm API.
+There are no planned goals other than what is listed in the [milestones section](https://github.com/nathanIL/docker-manager/milestones). suggestions and contributions are welcome.
 
 
 ### Stack
@@ -24,4 +22,5 @@ Forks and contributions are more than welcome!
 ### Todo:
 Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
 
-
+## Contributions
+Pull requests will be accepted only to the _develop_ branch.
