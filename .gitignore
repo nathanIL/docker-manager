@@ -1,3 +1,5 @@
 environment/
+env/
 *.pyc
+.idea/
 
