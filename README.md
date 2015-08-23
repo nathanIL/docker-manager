@@ -22,5 +22,5 @@ There are no planned goals other than what is listed in the [milestones section]
 ### Todo:
 Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
 
-## Contributions
+### Contributions
 Pull requests will be accepted only to the _develop_ branch.
