@@ -4,6 +4,7 @@ import os
 import sys
 import stat
 import grp
+import re
 import getpass
 
 
@@ -47,8 +48,13 @@ class DMServer(Server):
         super(DMServer,self).__init__(*args,**kwargs)
 
     def unset_proxies(self):
+        """
+            Unset HTTP_PROXY and HTTPS_PROXY according to requests (http://www.python-requests.org/en/latest/user/advanced/#proxies)
+            This is because requests_unixsocket doesnt work when proxies are set.
+        """
+        proxies = filter( lambda v: re.compile(r"http(?:s)?_proxy",re.I).match(v) , os.environ.keys() )
         try:
-            del(os.environ['HTTP_PROXY'])
-            del(os.environ['HTTPS_PROXY'])
+            for proxy in proxies:
+                del(os.environ[proxy])
         except:
             pass

@@ -1,6 +1,6 @@
 angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.services',
                           'manager.filters','manager.navbar','manager.dashboard',
-                          'manager.components','ui.grid'])
+                          'manager.components'])
  .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
       when('/', {
