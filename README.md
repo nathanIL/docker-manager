@@ -18,6 +18,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [morris.js](http://morrisjs.github.io/)
     * [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
     * [webui-popover](https://github.com/sandywalker/webui-popover)
+    * [UI Boostrap](https://angular-ui.github.io)
 
 ### Todo:
 Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
