@@ -1,3 +1,65 @@
+<!-- ============================= Templates ================================ -->
+<!-- ng-template for the action button group for each image -->
+<script type="text/ng-template" id="actionButtonGroup.html">
+    <div class="btn-group btn-group-xs" role="group">
+        <button type="button" ng-click="grid.appScope.openStartModalAction(row.entity.id)" class="btn btn-primary">
+            <div class="glyphicon glyphicon-play"> start</div>
+        </button>
+        <button type="button" class="btn btn-info">
+            <div class="glyphicon glyphicon-info-sign"> info</div>
+        </button>
+        <button type="button" class="btn btn-danger">
+            <div class="glyphicon glyphicon-remove"> remove</div>
+        </button>
+    </div>
+</script>
+
+<!-- ng-template for the the start modal -->
+<script type="text/ng-template" id="startModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Container creation menu</h3>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-info" role="alert">
+            The following properties are equivalent to Docker's <i>run</i> command ones.
+            See official Docker docs for additional information.
+        </div>
+        <tabset justified="true">
+            <!-- Parameters tab (see Docker Remote API docs) -->
+            <tab heading="Parameters" active="true">
+                <form class="form-horizontal">
+                    <div class="form-group" ng-repeat="item in startParameters">
+                        <div class="col-md-2">
+                            <label for="{{ item.name }}">{{ item.name }}</label>
+                        </div>
+                        <span ng-if="isString(item.val)">
+                            <div class="col-md-10">
+                                <input type="text" ng-model="item.val" class="form-control" id="{{ item.name }}" placeholder="{{ item.tip }}">
+                            </div>
+                        </span>
+                        <span ng-if="item.val === true || item.val === false">
+                            <div class="col-md-10">
+                                <input type="checkbox" ng-model="item.val" id="{{ item.name }}">
+                            </div>
+                        </span>
+                    </div>
+                </form>
+            </tab>
+
+
+            <!-- Host Config tab (see Docker Remote API docs) -->
+            <tab heading="Host Config">
+
+            </tab>
+        </tabset>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="modalRun()">Run</button>
+        <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
+    </div>
+</script>
+<!-- =========================== End of Templates ================================ -->
+
 <div id="page-wrapper">
     <div class="container-fluid">
 
@@ -6,8 +68,8 @@
                 <h1 class="page-header">
                     Images <small>Images related operations and information</small>
                 </h1>
-                <div class="alert alert-success" role="alert">
-                    This section provides the means to interact with the available (pulled) Docker images, as
+                <div class="alert alert-info" role="alert">
+                    This section provides the means to interact with the available (<i>pull</i>ed) Docker images, as
                     well a present all needed information on each and every image available.
                 </div>
             </div>
@@ -19,7 +81,7 @@
                         <h3 class="panel-title"><i class="fa fa-cube"></i> Available Images</h3>
                     </div>
                     <div class="panel-body panel-body-no-padding">
-                           <div ui-grid="imagesGrid" class="grid"></div>
+                        <div ui-grid="imagesGrid" class="grid"></div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import requests_unixsocket
 import urllib
+import json
 import re
 
 
@@ -8,4 +9,4 @@ def dockerapi_dispatcher(app,request):
     uri = re.match(r"^.+/dockerapi/(.+)", request.url).group(1)
     session = requests_unixsocket.Session()
     unix_socket = urllib.quote_plus( app.config['SOCKET'] )
-    return getattr(session,method.lower())('http+unix://{0}/{1}'.format(unix_socket,uri))
+    return getattr(session,method.lower())('http+unix://{0}/{1}'.format(unix_socket,uri),json=request.json)

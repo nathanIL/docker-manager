@@ -147,7 +147,7 @@ angular.module('manager.services', ['ngResource'])
                 var UpStatusRegex = /^Up(.+?)(?:\((.+?)\))?$/;
                 var ExitedStatusRegex = /^Exited\s+\(\w+\)(.+)$/;
                 var match = [];
-                var res = {};
+                var res = { status: 'Undefined', actions: ['Remove'] };
 
                  if (match = UpStatusRegex.exec(d.Status)) {
                     res = { time: match[1].trim(),
