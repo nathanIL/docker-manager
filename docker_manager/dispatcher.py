@@ -1,6 +1,5 @@
 import requests_unixsocket
 import urllib
-import json
 import re
 
 
