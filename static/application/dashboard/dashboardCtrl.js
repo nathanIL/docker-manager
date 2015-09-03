@@ -34,13 +34,14 @@ angular.module('manager.dashboard',[])
 
 
     /* Containers chart and table */
-
+    $scope.containers = [];
     function updateContainers() {
-        $scope.containers = [];
+    
         Container.query({all: 1}, function(d) {
             var datamap = {};
             var data = [];
 
+            $scope.containers = [];
             d.forEach(function(element,index,array){
                 var status = ContainerStatus.get(element);
                 element['actions'] = status.actions;
