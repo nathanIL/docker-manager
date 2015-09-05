@@ -10,6 +10,11 @@ The project itself consists of several sections, each section has its own functi
 ##### Images
 ![Images](/images.png)
 
+
+There are helpful tooltips / popovers in each section based on the official docker documentation, so you basically learn
+along the way on what docker is
+![Popover](/popover1.png)
+
 Forks and contributions are more than welcome!
 
 ### Goals
