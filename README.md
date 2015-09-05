@@ -1,6 +1,6 @@
 ## docker-manager
 docker-manager is a web user interface for Docker and Docker Registry.
-This project is currently in development, many features are still missing and it under development. 
+This project is currently in development, many features are still missing and are under development. 
 It is somewhat influenced by _startbootstrap-sb-admin_ and _dockerui_ projects (thanks!).
 
 Forks and contributions are more than welcome!
