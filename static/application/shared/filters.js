@@ -18,4 +18,9 @@ angular.module('manager.filters',[])
                     } ).join(',');
                     return names;
             }
+ })
+ .filter('containerimage',function() {
+            return function(element) {
+                    return element.Image;
+            }
  });

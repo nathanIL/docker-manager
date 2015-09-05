@@ -56,24 +56,26 @@
                             <table class="table table-bordered table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Names</th>
+                                    <th>Name</th>
+                                    <th>Image</th>
                                     <th>Id</th>
                                     <th>Status</th>
-                                    <th>Started</th>
+                                    <th>Status time</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="container in containers">
                                     <td>{{ container|containernames }}</td>
+                                    <td>{{ container|containerimage }}</td>
                                     <td>{{ container.Id.substring(0,12) }}</td>
                                     <td>{{ container|containerstatus:'status' }}</td>
                                     <td>{{ container|containerstatus:'time' }}</td>
                                     <!-- Action Button -->
                                     <td>
                                       <div class="btn-group" dropdown is-open="status.isopen">
-                                          <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-                                            Container Actions <span class="caret"></span>
+                                          <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
+                                            Choose Action <span class="caret"></span>
                                           </button>
                                           <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                                             <li role="menuitem" ng-repeat="sa in container.actions"><a href="" ng-click="action(container.Id,sa)">{{ sa }}</a></li>

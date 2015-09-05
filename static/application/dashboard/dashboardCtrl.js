@@ -1,5 +1,6 @@
 angular.module('manager.dashboard',[])
-  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus', function($scope,Image,Container,Popover,ContainerStatus) {
+  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','Spinner',
+  function($scope,Image,Container,Popover,ContainerStatus,Spinner) {
 
     /* Populate the Images creation trend chart */
     Image.query(function(d) {
@@ -28,7 +29,7 @@ angular.module('manager.dashboard',[])
     /* Containers chart and table */
     $scope.containers = [];
     function updateContainers() {
-    
+
         Container.query({all: 1}, function(d) {
             var datamap = {};
             var data = [];
@@ -52,12 +53,19 @@ angular.module('manager.dashboard',[])
                   element: 'ContainersChart',
                   data: data
             });
-
         });
      }
+
+    $scope.spinner = Spinner('ContainersListPopOver');
     $scope.action = function(cid,action) {
-             Container[action.toLowerCase()]({ id: cid });
-             updateContainers();
+             $scope.spinner.stop();
+             $scope.spinner.spin();
+             Container[action.toLowerCase()]({ id: cid },
+                        function(val,rsph) { $scope.spinner.stop();
+                                             updateContainers(); },
+
+                        function(resp) { $scope.spinner.stop();
+                                         updateContainers(); });
     };
     updateContainers();
     /* End of Containers chart and table */
