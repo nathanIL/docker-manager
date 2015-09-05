@@ -1,6 +1,7 @@
 ## docker-manager
-docker-manager is a web interface for the Docker Remote API and the Docker Registry API.
-This project is currently in development and far from being usable, it is somewhat influenced by _startbootstrap-sb-admin_ and _dockerui_ projects (thanks!).
+docker-manager is a web user interface for Docker and Docker Registry.
+This project is currently in development, many features are still missing and it under development. 
+It is somewhat influenced by _startbootstrap-sb-admin_ and _dockerui_ projects (thanks!).
 
 Forks and contributions are more than welcome!
 
@@ -19,6 +20,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
     * [webui-popover](https://github.com/sandywalker/webui-popover)
     * [UI Boostrap](https://angular-ui.github.io)
+    * [spin.js](http://fgnass.github.io/spin.js/)
 
 ### Todo:
 Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
