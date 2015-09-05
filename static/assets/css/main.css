@@ -154,18 +154,6 @@ ul.alert-dropdown {
     color: #fff;
 }
 
-/* Flot Chart Containers */
-
-.flot-chart {
-    display: block;
-    height: 400px;
-}
-
-.flot-chart-content {
-    width: 100%;
-    height: 100%;
-}
-
 /* Custom Colored Panels */
 
 .huge {
@@ -228,4 +216,19 @@ ul.alert-dropdown {
 
 .panel-body-no-padding {
     padding: 0px;
+}
+
+/* Bootstrap table design */
+table {
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+thead th {
+  background-color: #006DCC;
+  color: white;
+}
+
+tbody td {
+  background-color: #EEEEEE;
 }

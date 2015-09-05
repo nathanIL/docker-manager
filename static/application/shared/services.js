@@ -177,12 +177,12 @@ angular.module('manager.services', ['ngResource'])
             return function(elementId) {
                    var spinner = new Spinner({ lines: 20, shadow: true, radius: 8 });
                    var element = document.getElementById(elementId);
-                   var isSpinning = false;
+                   this.isSpinning = false;
 
                    return {
-                            spin: function() { spinner.spin(element); isSpinning = true },
-                            stop: function()  { spinner.stop(); isSpinning = false },
-                            isSpinning: isSpinning
+                            spin: function() { spinner.spin(element); this.isSpinning = true },
+                            stop: function()  { spinner.stop(); this.isSpinning = false },
+                            isSpinning: this.isSpinning
                    };
             }
     });

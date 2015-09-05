@@ -58,13 +58,14 @@ angular.module('manager.dashboard',[])
 
     $scope.spinner = Spinner('ContainersListPopOver');
     $scope.action = function(cid,action) {
-             $scope.spinner.stop();
              $scope.spinner.spin();
+             updateContainers(); // to make ngDisabled play well
              Container[action.toLowerCase()]({ id: cid },
                         function(val,rsph) { $scope.spinner.stop();
                                              updateContainers(); },
 
                         function(resp) { $scope.spinner.stop();
+                                         // TODO: Use gritter or qui'v to show the error message
                                          updateContainers(); });
     };
     updateContainers();
