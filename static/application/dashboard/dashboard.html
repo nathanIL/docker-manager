@@ -51,9 +51,8 @@
                     <div class="panel-heading">
                         <h3 class="panel-title"><a id="ContainersListPopOver" href="#/"><i class="fa fa-hdd-o"></i></a> Containers list</h3>
                     </div>
-                    <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
+                            <table class="table table-bordered table-hover table-condensed">
                                 <thead>
                                 <tr>
                                     <th>Name</th>
@@ -65,7 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="container in containers">
+                                <tr ng-repeat="container in containers" class="{{ container|containerstatus:'style' }}">
                                     <td>{{ container|containernames }}</td>
                                     <td>{{ container|containerimage }}</td>
                                     <td>{{ container.Id.substring(0,12) }}</td>
@@ -75,7 +74,7 @@
                                     <td>
                                       <div class="btn-group" dropdown is-open="status.isopen">
                                           <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle>
-                                            Choose Action <span class="caret"></span>
+                                              Action <span class="caret"></span>
                                           </button>
                                           <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
                                             <li role="menuitem" ng-repeat="sa in container.actions"><a href="" ng-click="action(container.Id,sa)">{{ sa }}</a></li>
@@ -89,7 +88,6 @@
                         <div class="text-right">
                             <a href="#/containers">Go to Containers section <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

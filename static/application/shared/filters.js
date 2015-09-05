@@ -2,10 +2,26 @@ angular.module('manager.filters',[])
     .filter('containerstatus',['ContainerStatus', function(ContainerStatus) {
             return function(element,type) {
                 var res;
-                if (type == "status") {
-                    res = ContainerStatus.get(element).status;
-                } else if(type == "time") {
-                    res = ContainerStatus.get(element).time;
+
+                switch (type) {
+                    case "status":
+                        res = ContainerStatus.get(element).status;
+                        break;
+                    case "time":
+                        res = ContainerStatus.get(element).time;
+                        break;
+                    case "style":
+                        var status = ContainerStatus.get(element).status;
+
+                        if (status == "Undefined")
+                            res = "danger";
+                        else if (status == "Running")
+                            res = "success";
+                        else if (status == "Paused")
+                            res = "info";
+                        else
+                            res = "warning";
+                        break;
                 }
                 return res;
             }
