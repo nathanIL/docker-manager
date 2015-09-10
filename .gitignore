@@ -2,4 +2,5 @@ environment/
 env/
 *.pyc
 .idea/
+bower_components/
 

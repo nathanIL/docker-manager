@@ -174,6 +174,8 @@ angular.module('manager.services', ['ngResource'])
         } };
     })
     .factory('Spinner',function() {
+            /* Spinner loading indicator */
+            'use strict';
             return function(elementId) {
                    var spinner = new Spinner({ lines: 20, shadow: true, radius: 8 });
                    var element = document.getElementById(elementId);
@@ -184,5 +186,29 @@ angular.module('manager.services', ['ngResource'])
                             stop: function()  { spinner.stop(); this.isSpinning = false },
                             isSpinning: this.isSpinning
                    };
+            }
+    })
+    .factory('Alertbox', function() {
+            /* swal from SweetAlert: http://t4t5.github.io/sweetalert/ */
+            'use strict';
+            return function(data) {
+                     var base_data = { html: true,
+                                       title: '<small>' + data.title + '</small>',
+                                       confirmButtonText: 'Close' };
+                     return {
+                        warn: function(data) {
+                                               angular.merge(data,
+                                                            { confirmButtonColor: '#DD6B55',
+                                                              type: 'warning' },
+                                                            base_data);
+                                               swal(data) },
+                        info: function(data) {
+                                               angular.merge(data,
+                                                            { confirmButtonColor: '#AEDEF4',
+                                                              type: 'info' },
+                                                            base_data);
+                                               swal(data) },
+
+                     };
             }
     });

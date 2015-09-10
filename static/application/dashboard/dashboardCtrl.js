@@ -1,6 +1,6 @@
 angular.module('manager.dashboard',[])
-  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','Spinner',
-  function($scope,Image,Container,Popover,ContainerStatus,Spinner) {
+  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','Spinner','Alertbox',
+  function($scope,Image,Container,Popover,ContainerStatus,Spinner,Alertbox) {
 
     /* Populate the Images creation trend chart */
     Image.query(function(d) {
@@ -65,13 +65,16 @@ angular.module('manager.dashboard',[])
                                              updateContainers(); },
 
                         function(resp) { $scope.spinner.stop();
-                                         // TODO: Use gritter or qui'v to show the error message
+                                         Alertbox.warn({ title: "Could not perform operation (Code " + resp.status +")",
+                                                         text: resp.statusText });
                                          updateContainers(); });
     };
     updateContainers();
     /* End of Containers chart and table */
 
-    /* Popovers */
+    /* Popovers
+     * TODO: I guess we can save these strings in a centralize location so i18n later will be easier to implement
+    */
     Popover.show({ element: '#ImagesCreationTrendChartPopOver',
                     title: 'Images creation trend graph',
                     content: 'This graph shows the images creation trend. The dates reflect the image ' +
