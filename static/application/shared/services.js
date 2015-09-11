@@ -147,7 +147,7 @@ angular.module('manager.services', ['ngResource'])
                 var UpStatusRegex = /^Up(.+?)(?:\((.+?)\))?$/;
                 var ExitedStatusRegex = /^Exited\s+\(\w+\)(.+)$/;
                 var match = [];
-                var res = { status: 'Undefined', actions: ['Remove'] };
+                var res = { status: 'Created', actions: ['Remove','Start'] };
 
                  if (match = UpStatusRegex.exec(d.Status)) {
                     res = { time: match[1].trim(),
@@ -173,20 +173,11 @@ angular.module('manager.services', ['ngResource'])
                    });
         } };
     })
-    .factory('Spinner',function() {
-            /* Spinner loading indicator */
+    .factory('LoadingModal',function() {
+            /* Loading Modal */
             'use strict';
-            return function(elementId) {
-                   var spinner = new Spinner({ lines: 20, shadow: true, radius: 8 });
-                   var element = document.getElementById(elementId);
-                   this.isSpinning = false;
-
-                   return {
-                            spin: function() { spinner.spin(element); this.isSpinning = true },
-                            stop: function()  { spinner.stop(); this.isSpinning = false },
-                            isSpinning: this.isSpinning
-                   };
-            }
+            return { show: function(msg) { waitingDialog.show('<small>' + msg + '</small>',{ dialogSize: 'sm' }) },
+                     hide: waitingDialog.hide  }
     })
     .factory('Alertbox', function() {
             /* swal from SweetAlert: http://t4t5.github.io/sweetalert/ */

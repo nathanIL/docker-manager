@@ -1,5 +1,6 @@
 angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
-  controller('imagesCtrl',['$scope','$modal','$log','Image','Container', function($scope,$modal,$log,Image,Container) {
+  controller('imagesCtrl',['$scope','$modal','Image','Container','LoadingModal',
+             function($scope,$modal,Image,Container,LoadingModal) {
 
     $scope.imagesGrid = {
                 columnDefs: [ { field: 'name',    enableHiding: false, enableSorting: true },
@@ -19,7 +20,7 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
     *  Parameters:
     *  id: Docker image id (12 chars)
     */
-    $scope.openStartModalAction = function (id) {
+    $scope.openStartModalAction = function (id,name) {
         var modalInstance = $modal.open({
           animation: true,
           templateUrl: 'startModal.html',
@@ -28,11 +29,22 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
         });
 
         $scope.isString = angular.isString; // utility
-        /* Continue based on: https://docs.docker.com/reference/api/docker_remote_api_v1.19/#create-a-container */
+
+        /* The following map is used to dynamically construct the 'Parameters' modal tab.
+
+           name: the Docker attribute name (According to the remote API).
+           val: the input value provided by the user.
+           tip: the tip to show to the user about this input.
+           transform: a function to call on the provided input before we post it to the server / docker daemon.
+
+           Remote Docker API: https://docs.docker.com/reference/api/docker_remote_api_v1.19/#create-a-container
+        */
         $scope.startParameters = [ { name: 'Hostname', val: "", tip: "Leave blank for automatically generated hostname" },
                                    { name: 'Domainname', val: "", tip: "Leave blank for default domain name " },
+                                   { name: 'Cmd', val: "", transform: function(d) { return d.split(/\s+/) } },
                                    { name: 'User', val: "", tip: "Leave blank to use default user" },
-                                   { name: 'Env', val: "", tip: "A list of environment variables in the form of VAR=value separated with a comma" },
+                                   { name: 'Env', val: "", tip: "A list of environment variables in the form of VAR=value separated with a comma",
+                                                           transform: function(d) { return d.split(/\s*,\s*/) } },
                                    { name: 'AttachStdin', val: false },
                                    { name: 'AttachStdout', val: true },
                                    { name: 'AttachStderr', val: true },
@@ -43,16 +55,25 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
 
         $scope.modalAbort = function() { modalInstance.dismiss('abort'); }
         $scope.modalRun = function() {
-                modalInstance.close('run');
                 var data = {};
-                 angular.forEach($scope.startParameters, function(v,k) {
+
+                modalInstance.close('run');
+                LoadingModal.show("Starting: <b>" + name + "</b>, please wait");
+                angular.forEach($scope.startParameters, function(v,k) {
                         if (angular.isString(v.val) && v.val.trim().length > 0) {
-                            data[v.name] = v.val.trim();
+                            data[v.name] = v.hasOwnProperty('transform') ? v.transform(v.val.trim()) : v.val.trim();
                         }
                         data.Image = id;
                   } );
+
                 var cs = new Container(data);
-                cs.$create(); // add loading ...
+                // TODO: Possible a problem to solve with $q?
+                // TODO: On errors, show the error message
+                cs.$create(function(success_val,resp_headers) {
+                        cs.$start({ id: success_val.Id },
+                        function(sv,rh) { LoadingModal.hide() },
+                        function(fv) { LoadingModal.hide() } );
+                },function(error_val) { LoadingModal.hide() } );
          };
       };
 

@@ -32,7 +32,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
     * [webui-popover](https://github.com/sandywalker/webui-popover)
     * [UI Boostrap](https://angular-ui.github.io)
-    * [spin.js](http://fgnass.github.io/spin.js/)
+    * [bootstrap-waitingfor](https://github.com/ehpc/bootstrap-waitingfor)
 
 ### Todo:
 Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)

@@ -13,8 +13,8 @@ angular.module('manager.filters',[])
                     case "style":
                         var status = ContainerStatus.get(element).status;
 
-                        if (status == "Undefined")
-                            res = "danger";
+                        if (status == "Created")
+                            res = "info";
                         else if (status == "Running")
                             res = "success";
                         else if (status == "Paused")

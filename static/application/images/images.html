@@ -2,13 +2,13 @@
 <!-- ng-template for the action button group for each image -->
 <script type="text/ng-template" id="actionButtonGroup.html">
     <div class="btn-group btn-group-xs" role="group">
-        <button type="button" ng-click="grid.appScope.openStartModalAction(row.entity.id)" class="btn btn-primary">
+        <button type="button" ng-click="grid.appScope.openStartModalAction(row.entity.id,row.entity.name)" class="btn btn-primary" ng-disabled="{{ spinner.isSpinning }}">
             <div class="glyphicon glyphicon-play"> start</div>
         </button>
-        <button type="button" class="btn btn-info">
+        <button type="button" class="btn btn-info" ng-disabled="{{ spinner.isSpinning }}">
             <div class="glyphicon glyphicon-info-sign"> info</div>
         </button>
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" ng-disabled="{{ spinner.isSpinning }}">
             <div class="glyphicon glyphicon-remove"> remove</div>
         </button>
     </div>

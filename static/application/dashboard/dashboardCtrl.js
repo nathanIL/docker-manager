@@ -1,6 +1,6 @@
 angular.module('manager.dashboard',[])
-  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','Spinner','Alertbox',
-  function($scope,Image,Container,Popover,ContainerStatus,Spinner,Alertbox) {
+  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','LoadingModal','Alertbox',
+  function($scope,Image,Container,Popover,ContainerStatus,LoadingModal,Alertbox) {
 
     /* Populate the Images creation trend chart */
     Image.query(function(d) {
@@ -56,15 +56,14 @@ angular.module('manager.dashboard',[])
         });
      }
 
-    $scope.spinner = Spinner('ContainersListPopOver');
+
     $scope.action = function(cid,action) {
-             $scope.spinner.spin();
-             updateContainers(); // to make ngDisabled play well
+             LoadingModal.show(action + " In progress, please wait");
              Container[action.toLowerCase()]({ id: cid },
-                        function(val,rsph) { $scope.spinner.stop();
+                        function(val,rsph) { LoadingModal.hide();
                                              updateContainers(); },
 
-                        function(resp) { $scope.spinner.stop();
+                        function(resp) { LoadingModal.hide();
                                          Alertbox.warn({ title: "Could not perform operation (Code " + resp.status +")",
                                                          text: resp.statusText });
                                          updateContainers(); });
