@@ -21,6 +21,8 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
     *  id: Docker image id (12 chars)
     */
     $scope.openStartModalAction = function (id,name) {
+       $scope.selectedImageNameModalAction = name;
+
         var modalInstance = $modal.open({
           animation: true,
           templateUrl: 'startModal.html',
