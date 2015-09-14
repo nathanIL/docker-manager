@@ -35,7 +35,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [bootstrap-waitingfor](https://github.com/ehpc/bootstrap-waitingfor)
 
 ### Todo:
-Please check the [milestones section](https://github.com/nathanIL/docker-manager/milestones)
+Please check the [Issues section](https://github.com/nathanIL/docker-manager/milestones)
 
 ### Contributions
 Pull requests will be accepted only to the _develop_ branch.
