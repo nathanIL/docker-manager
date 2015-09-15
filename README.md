@@ -33,6 +33,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [webui-popover](https://github.com/sandywalker/webui-popover)
     * [UI Boostrap](https://angular-ui.github.io)
     * [bootstrap-waitingfor](https://github.com/ehpc/bootstrap-waitingfor)
+    * [angular-formly](http://angular-formly.com/)
 
 ### Todo:
 Please check the [Issues section](https://github.com/nathanIL/docker-manager/milestones)
