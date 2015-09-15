@@ -24,38 +24,28 @@
             The following properties are equivalent to Docker's <i>run</i> command ones.
             See the official Docker docs for additional information.
         </div>
-        <tabset justified="true">
-            <!-- Parameters tab (see Docker Remote API docs) -->
-            <tab heading="Parameters" active="true">
-                <form class="form-horizontal">
-                    <div class="form-group" ng-repeat="item in startParameters">
-                        <div class="col-md-2">
-                            <label for="{{ item.name }}">{{ item.name }}</label>
+        <form ng-submit="modalRun()" name="startForm" novalidate>
+            <tabset justified="true">
+                <!-- Parameters tab (see Docker Remote API docs) -->
+                <tab heading="Parameters" active="true">
+                    <formly-form model="regularStartParameters" fields="startParameterFields">
+                        <div class="modal-footer">
+                            <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
+                            <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
                         </div>
-                        <span ng-if="isString(item.val)">
-                            <div class="col-md-10">
-                                <input type="text" ng-model="item.val" class="form-control" id="{{ item.name }}" placeholder="{{ item.tip }}">
-                            </div>
-                        </span>
-                        <span ng-if="item.val === true || item.val === false">
-                            <div class="col-md-10">
-                                <input type="checkbox" ng-model="item.val" id="{{ item.name }}">
-                            </div>
-                        </span>
-                    </div>
-                </form>
-            </tab>
-
-
-            <!-- Host Config tab (see Docker Remote API docs) -->
-            <tab heading="Host Config">
-
-            </tab>
-        </tabset>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="modalRun()">Run</button>
-        <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
+                    </formly-form>
+                </tab>
+                <!-- Host Config tab (see Docker Remote API docs) -->
+                <tab heading="Host Config">
+                    <formly-form model="hostConfigParameters" fields="HostConfigParameterFields">
+                        <div class="modal-footer">
+                            <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
+                            <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
+                        </div>
+                    </formly-form>
+                </tab>
+            </tabset>
+        </form>
     </div>
 </script>
 <!-- =========================== End of Templates ================================ -->
@@ -69,8 +59,9 @@
                     Images <small>Images related operations and information</small>
                 </h1>
                 <div class="alert alert-info" role="alert">
-                    This section provides the means to interact with the available (<i>pull</i>ed) Docker images, as
-                    well a present all needed information on each and every image available.
+                    This section provides the means to interact with the available (<i>pull</i>ed) Docker images, and
+                    to resent all needed information on each and every image available.<br/>
+                    Once an image has been started, further interactions can be made on the <i>Containers</i> section.
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
+angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
   controller('imagesCtrl',['$scope','$modal','Image','Container','LoadingModal',
              function($scope,$modal,Image,Container,LoadingModal) {
 
@@ -32,28 +32,81 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
 
         $scope.isString = angular.isString; // utility
 
-        /* The following map is used to dynamically construct the 'Parameters' modal tab.
-
-           name: the Docker attribute name (According to the remote API).
-           val: the input value provided by the user.
-           tip: the tip to show to the user about this input.
-           transform: a function to call on the provided input before we post it to the server / docker daemon.
-
+        /* The following map is used to dynamically construct (with angular formly) the 'Parameters' modal tab.
            Remote Docker API: https://docs.docker.com/reference/api/docker_remote_api_v1.19/#create-a-container
         */
-        $scope.startParameters = [ { name: 'Hostname', val: "", tip: "Leave blank for automatically generated hostname" },
-                                   { name: 'Domainname', val: "", tip: "Leave blank for default domain name " },
-                                   { name: 'Cmd', val: "", transform: function(d) { return d.split(/\s+/) } },
-                                   { name: 'User', val: "", tip: "Leave blank to use default user" },
-                                   { name: 'Env', val: "", tip: "A list of environment variables in the form of VAR=value separated with a comma",
-                                                           transform: function(d) { return d.split(/\s*,\s*/) } },
-                                   { name: 'AttachStdin', val: false },
-                                   { name: 'AttachStdout', val: true },
-                                   { name: 'AttachStderr', val: true },
-                                   { name: 'Tty', val: false },
-                                   { name: 'OpenStdin', val: false },
-                                   { name: 'StdinOnce', val: false } ];
+        //TODO: Complete this modal
+        $scope.regularStartParameters = {};
+        $scope.hostConfigParameters = {};
+        $scope.startParameterFields = [ { key: 'Hostname',  type: 'hostname' },
+                                        { key: 'Domainname',type: 'domain' },
+                                        { key: 'User',
+                                          type: 'input',
+                                          templateOptions: {
+                                                type: 'text',
+                                                label: 'User',
+                                                description: 'User to use within the container' }  },
+                                        { key: 'Env',
+                                          type: 'input',
+                                          templateOptions: {
+                                                type: 'text',
+                                                label: 'Environment Variables',
+                                                description: 'Environment variables to be used within the container seperated by comma. Should be set as follows: A=1,B=2,C=3' },
+                                          parsers: [ function(d) { return d.split(/\s*,\s*/) } ] },
+                                        { key: 'Cmd',
+                                          type: 'input',
+                                          templateOptions: {
+                                                type: 'text',
+                                                label: 'Command line',
+                                                description: 'The shell command to run' },
+                                          parsers: [ function(d) { return d.split(/\s+/) } ] },
+                                        { key: 'Memory',
+                                          type: 'input',
+                                          ngModelElAttrs: { 'min': '0' },
+                                          templateOptions: {
+                                                type: 'number',
+                                                label: 'Memory limit (bytes)',
+                                                description: 'Set the container memory limit' }  },
+                                        { key: 'MemorySwap',
+                                          type: 'input',
+                                          ngModelElAttrs: { 'min': '-1' },
+                                          templateOptions: {
+                                                type: 'number',
+                                                label: 'Total memory limit (bytes)',
+                                                description: 'Set the total memory limit (memory + swap); set -1 to disable swap You must use this with memory and make the swap value larger than memory' }  },
+                                        { key: 'AttachStdin',
+                                          type: 'checkbox',
+                                          defaultValue: false,
+                                          templateOptions: { label: 'Attach standard input?',
+                                                             description: 'Attach standard input (STDIN) from host to container'} },
+                                        { key: 'AttachStdout',
+                                          type: 'checkbox',
+                                          defaultValue: true,
+                                          templateOptions: { label: 'Attach standard output?',
+                                                             description: 'Attach standard output (STDOUT) from container to host'} },
+                                        { key: 'AttachStderr',
+                                          type: 'checkbox',
+                                          defaultValue: true,
+                                          templateOptions: { label: 'Attach standard error?',
+                                                             description: 'Attach standard error (STDERR) from container to host'} },
+                                        { key: 'Tty',
+                                          type: 'checkbox',
+                                          defaultValue: false,
+                                          templateOptions: { label: 'Attach standard streams to tty?',
+                                                             description: 'Attach standard streams to a tty, including stdin if it is not closed'} },
+                                        { key: 'OpenStdin',
+                                          type: 'checkbox',
+                                          defaultValue: false,
+                                          templateOptions: { label: 'Open standard input?',
+                                                             description: 'Open the standard input stream'} },
+                                        { key: 'StdinOnce',
+                                          type: 'checkbox',
+                                          defaultValue: false,
+                                          templateOptions: { label: 'Close standard input once?',
+                                                             description: 'Close standard input after the 1 attached client disconnects'} } ];
 
+//Memory
+        $scope.HostConfigParameterFields = [];
 
         $scope.modalAbort = function() { modalInstance.dismiss('abort'); }
         $scope.modalRun = function() {
@@ -61,13 +114,11 @@ angular.module('manager.components',['ui.grid','ui.grid.resizeColumns']).
 
                 modalInstance.close('run');
                 LoadingModal.show("Starting: <b>" + name + "</b>, please wait");
-                angular.forEach($scope.startParameters, function(v,k) {
-                        if (angular.isString(v.val) && v.val.trim().length > 0) {
-                            data[v.name] = v.hasOwnProperty('transform') ? v.transform(v.val.trim()) : v.val.trim();
-                        }
-                        data.Image = id;
+                // TODO: Merge both startParameterFields and HostConfigParameterFields and used the merged Map instead of regularStartParameters
+                angular.forEach($scope.regularStartParameters, function(v,k) {
+                        data[k] = v;
                   } );
-
+                data.Image = id;
                 var cs = new Container(data);
                 // TODO: Possible a problem to solve with $q?
                 // TODO: On errors, show the error message

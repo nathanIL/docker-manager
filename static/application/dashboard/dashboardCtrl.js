@@ -1,4 +1,4 @@
-angular.module('manager.dashboard',[])
+angular.module('manager.components.dashboard',[])
   .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','LoadingModal','Alertbox',
   function($scope,Image,Container,Popover,ContainerStatus,LoadingModal,Alertbox) {
 
