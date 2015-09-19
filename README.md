@@ -18,7 +18,7 @@ along the way on what docker is
 Forks and contributions are more than welcome!
 
 ### Goals
-There are no planned goals other than what is listed in the [milestones section](https://github.com/nathanIL/docker-manager/milestones). suggestions and contributions are welcome.
+There are no planned goals other than what is listed in the [issues section](https://github.com/nathanIL/docker-manager/issues). suggestions and contributions are welcome.
 
 
 ### Stack
@@ -36,7 +36,7 @@ There are no planned goals other than what is listed in the [milestones section]
     * [angular-formly](http://angular-formly.com/)
 
 ### Todo:
-Please check the [Issues section](https://github.com/nathanIL/docker-manager/milestones)
+Please check the [Issues section](https://github.com/nathanIL/docker-manager/issues)
 
 ### Contributions
 Pull requests will be accepted only to the _develop_ branch.
