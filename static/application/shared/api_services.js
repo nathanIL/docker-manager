@@ -1,4 +1,23 @@
 angular.module('manager.services.api', ['ngResource'])
+    .factory('Events',function($resource,Settings) {
+      'use strict';
+      // A raw interface to the polling version of the docker events API.
+      return $resource(Settings.url + '/events', { since: 0, until: function() { return Math.floor((new Date()).getTime() / 1000) } },
+      { query: {method: 'GET', transformResponse:
+             function(data, headersGetter) {
+                  var array = [];
+                  angular.forEach(data.split("\n"), function(d,i) {
+                    var json = null;
+                    try {
+                        json = angular.fromJson(d);
+                        array.push(json);
+                    } catch (err) {
+                        // Skip
+                    }
+                  });
+              return array
+             }, isArray: true } } )
+    })
     .factory('Container', function ($resource, Settings) {
         'use strict';
         // Resource for interacting with the docker containers
