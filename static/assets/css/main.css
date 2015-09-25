@@ -1,9 +1,3 @@
-/*!
- * Start Bootstrap - SB Admin Bootstrap Admin Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
 /* Global Styles */
 
 body {
@@ -24,13 +18,9 @@ body {
 #page-wrapper {
     width: 100%;
     padding: 0;
-    background-color: #fff;
+    background-color: #F1F1F1;
 }
 
-.huge {
-    font-size: 50px;
-    line-height: normal;
-}
 
 @media(min-width:768px) {
     #wrapper {
@@ -67,47 +57,6 @@ body {
 .top-nav>.open>a:focus {
     color: #fff;
     background-color: #000;
-}
-
-.top-nav>.open>.dropdown-menu {
-    float: left;
-    position: absolute;
-    margin-top: 0;
-    border: 1px solid rgba(0,0,0,.15);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    background-color: #fff;
-    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-}
-
-.top-nav>.open>.dropdown-menu>li>a {
-    white-space: normal;
-}
-
-ul.message-dropdown {
-    padding: 0;
-    max-height: 250px;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-li.message-preview {
-    width: 275px;
-    border-bottom: 1px solid rgba(0,0,0,.15);
-}
-
-li.message-preview>a {
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
-li.message-footer {
-    margin: 5px 0;
-}
-
-ul.alert-dropdown {
-    width: 200px;
 }
 
 /* Side Navigation */
@@ -150,74 +99,6 @@ ul.alert-dropdown {
     color: #999;
 }
 
-.side-nav>li>ul>li>a:hover {
-    color: #fff;
-}
-
-/* Custom Colored Panels */
-
-.huge {
-    font-size: 40px;
-}
-
-.panel-green {
-    border-color: #5cb85c;
-}
-
-.panel-green > .panel-heading {
-    border-color: #5cb85c;
-    color: #fff;
-    background-color: #5cb85c;
-}
-
-.panel-green > a {
-    color: #5cb85c;
-}
-
-.panel-green > a:hover {
-    color: #3d8b3d;
-}
-
-.panel-red {
-    border-color: #d9534f;
-}
-
-.panel-red > .panel-heading {
-    border-color: #d9534f;
-    color: #fff;
-    background-color: #d9534f;
-}
-
-.panel-red > a {
-    color: #d9534f;
-}
-
-.panel-red > a:hover {
-    color: #b52b27;
-}
-
-.panel-yellow {
-    border-color: #f0ad4e;
-}
-
-.panel-yellow > .panel-heading {
-    border-color: #f0ad4e;
-    color: #fff;
-    background-color: #f0ad4e;
-}
-
-.panel-yellow > a {
-    color: #f0ad4e;
-}
-
-.panel-yellow > a:hover {
-    color: #df8a13;
-}
-
-.panel-body-no-padding {
-    padding: 0px;
-}
-
 /* Bootstrap table design */
 table {
   border-collapse: separate;
@@ -231,4 +112,17 @@ thead th {
 
 tbody td {
   background-color: #EEEEEE;
+}
+
+/* Navbars shadows */
+.navbar-collapse {
+    -webkit-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.side-nav {
+    -webkit-box-shadow: 3px -1px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px -1px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px -1px 5px 0px rgba(0,0,0,0.75);
 }
