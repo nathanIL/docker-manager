@@ -5,10 +5,10 @@
   "authors": [
     "Nathan Abu <nathanabu@gmail.com>"
   ],
-  "description": "Web Interface for Docker componenets",
+  "description": "Web Interface for Docker components",
   "main": "",
   "moduleType": [],
-  "license": "MIT",
+  "license": "Apache License 2.0",
   "private": true,
   "ignore": [
     "**/.*",
