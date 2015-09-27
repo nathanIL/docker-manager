@@ -20,6 +20,23 @@ Forks and contributions are more than welcome!
 ### Goals
 There are no planned goals other than what is listed in the [issues section](https://github.com/nathanIL/docker-manager/issues). suggestions and contributions are welcome.
 
+### Installation
+Installation is done using _make_ and depends on the following which must be installed prior running _make_
+
+1. _virtualenv_
+2. _bower_
+
+#### How to install
+There are few targets configured for _make_. you can either _build_ it only and then run it manually, or you can _build_ it and _run_ it at the same time.
+
+* __build only:__ `make build`
+* __build and run:__ `make run`
+
+In case you choose to only build it, before running it, switch to the virtual environment first:
+`source environment/bin/activate`
+You can deactivate it later on by: `deactivate`
+
+
 
 ### Stack
 * **Backend**
