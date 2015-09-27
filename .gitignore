@@ -3,4 +3,4 @@ env/
 *.pyc
 .idea/
 bower_components/
-
+static/assets/public/

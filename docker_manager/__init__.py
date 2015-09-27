@@ -1,10 +1,11 @@
 from flask import (Flask,render_template,request)
+from flask.ext.bower import Bower
 from .dispatcher import dockerapi_dispatcher
 from .responses import make_no_cache_response
 
 
 app = Flask(__name__,static_folder='../static', template_folder='../templates')
-
+Bower(app)
 
 @app.route('/')
 def index():

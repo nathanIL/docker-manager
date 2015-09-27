@@ -9,7 +9,8 @@ import os
 DEFAULTS = [('SOCKET','/var/run/docker.sock'),
             ('PORT',9000,),
             ('HOST','0.0.0.0'),
-            ('DEBUG',False)]
+            ('DEBUG',False),
+            ('BOWER_COMPONENTS_ROOT','../static/assets/public')]
 
 def config_loader(app):
     """

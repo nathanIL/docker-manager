@@ -1,0 +1,35 @@
+{
+  "name": "docker-manager",
+  "version": "1.0.0",
+  "homepage": "https://github.com/nathanIL/docker-manager",
+  "authors": [
+    "Nathan Abu <nathanabu@gmail.com>"
+  ],
+  "description": "Web Interface for Docker componenets",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/assets/public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "angular-ui-bootstrap-bower#~0.13.4",
+    "angular-formly-templates-bootstrap": "~6.1.4",
+    "angular-formly": "~7.1.2",
+    "angular-resource": "~1.4.6",
+    "angular-route": "~1.4.6",
+    "angular-ui-grid": "~3.0.6",
+    "bootstrap-waitingfor": "~1.1.1",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "morris.js": "morrisjs#~0.5.1",
+    "sweetalert": "~1.1.0",
+    "webui-popover": "~1.1.6"
+  }
+}
