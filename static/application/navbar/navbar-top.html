@@ -5,7 +5,16 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <span ng-hide="events.length" class="text-center">No events!</span>
+            <span ng-hide="events.length">No events!</span>
+            <div ng-show="events.length" class="alert-container">
+                <li class="message-preview">
+                    <div class="media">
+                        <div class="media-body">
+                            <p><small class="media-heading">Last {{ events.length }} events:</small></p>
+                        </div>
+                    </div>
+                </li>
+                </div>
             <div ng-show="events.length" class="alert-container" ng-repeat="event in events | orderBy: event.time : true">
                 <li class="message-preview">
                     <div class="media">

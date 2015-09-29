@@ -63,7 +63,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                                 placeholder: 'e.g: tail -f /dev/null',
                                                 description: 'The shell command to run' },
                                           parsers: [ function(d) { return d.split(/\s+/) } ] },
-                                        { key: 'Memory',
+/*                                        { key: 'Memory',
                                           type: 'input',
                                           ngModelElAttrs: { 'min': '0' },
                                           templateOptions: {
@@ -80,7 +80,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                                 label: 'Total memory limit (MB)',
                                                 placeholder: 'e.g: 32',
                                                 description: 'Set the total memory limit (memory + swap); set -1 to disable swap You must use this with memory and make the swap value larger than memory' },
-                                          parsers: [ function(d) { return d * 1048576 } ] },
+                                          parsers: [ function(d) { return d * 1048576 } ] },*/
                                         { key: 'AttachStdin',
                                           type: 'checkbox',
                                           defaultValue: false,
