@@ -1,4 +1,4 @@
-<!-- ============================= Templates ================================ -->
+<!-- ============================= Images specific templates ================================ -->
 <!-- ng-template for the action button group for each image -->
 <script type="text/ng-template" id="actionButtonGroup.html">
     <div class="btn-group btn-group-xs" role="group">
@@ -13,42 +13,7 @@
         </button>
     </div>
 </script>
-
-<!-- ng-template for the the start modal -->
-<script type="text/ng-template" id="startModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title">Container <small>({{ selectedImageNameModalAction }})</small> creation & start menu</h3>
-    </div>
-    <div class="modal-body">
-        <div class="alert alert-info" role="alert">
-            The following properties are equivalent to Docker's <i>run</i> command ones.
-            See the official Docker docs for additional information.
-        </div>
-        <form ng-submit="modalRun()" name="startForm" novalidate>
-            <tabset justified="true">
-                <!-- Parameters tab (see Docker Remote API docs) -->
-                <tab heading="Parameters" active="true">
-                    <formly-form model="regularStartParameters" fields="startParameterFields">
-                        <div class="modal-footer">
-                            <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
-                            <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
-                        </div>
-                    </formly-form>
-                </tab>
-                <!-- Host Config tab (see Docker Remote API docs) -->
-                <tab heading="Host Config">
-                    <formly-form model="hostConfigParameters" fields="HostConfigParameterFields">
-                        <div class="modal-footer">
-                            <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
-                            <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
-                        </div>
-                    </formly-form>
-                </tab>
-            </tabset>
-        </form>
-    </div>
-</script>
-<!-- =========================== End of Templates ================================ -->
+<!-- =============================== End of Templates ====================================== -->
 
 <div id="page-wrapper">
     <div class="container-fluid">

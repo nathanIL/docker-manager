@@ -1,6 +1,6 @@
 angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
-  controller('imagesCtrl',['$scope','$modal','Image','Container','LoadingModal',
-             function($scope,$modal,Image,Container,LoadingModal) {
+  controller('imagesCtrl',['$scope','Image','StartModal',
+             function($scope,Image,StartModal) {
 
     $scope.imagesGrid = {
                 columnDefs: [ { field: 'name',    enableHiding: false, enableSorting: true },
@@ -20,21 +20,24 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
     *  Parameters:
     *  id: Docker image id (12 chars)
     */
-    $scope.openStartModalAction = function (id,name) {
+      $scope.openStartModalAction = function(id,name) {
+                StartModal.run($scope,id,name);
+      };
+/*    $scope.openStartModalAction = function (id,name) {
        $scope.selectedImageNameModalAction = name;
 
         var modalInstance = $modal.open({
           animation: true,
-          templateUrl: 'startModal.html',
+          templateUrl: 'static/application/shared/modals/startModal.html',
           scope: $scope,
           size: 'lg',
         });
 
         $scope.isString = angular.isString; // utility
 
-        /* The following map is used to dynamically construct (with angular formly) the 'Parameters' modal tab.
+        *//* The following map is used to dynamically construct (with angular formly) the 'Parameters' modal tab.
            Remote Docker API: https://docs.docker.com/reference/api/docker_remote_api_v1.19/#create-a-container
-        */
+        *//*
         //TODO: Complete this modal
         $scope.regularStartParameters = {};
         $scope.hostConfigParameters = {};
@@ -54,7 +57,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                                 label: 'Environment Variables',
                                                 placeholder: 'e.g: A=1,B=2,...',
                                                 description: 'Environment variables to be used within the container separated by comma. Should be set as follows: A=1,B=2,C=3' },
-                                          parsers: [ function(d) { return d.split(/\s*,\s*/) } ] },
+                                          parsers: [ function(d) { return d.split(/\s*,\s*//*) } ] },
                                         { key: 'Cmd',
                                           type: 'input',
                                           templateOptions: {
@@ -63,7 +66,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                                 placeholder: 'e.g: tail -f /dev/null',
                                                 description: 'The shell command to run' },
                                           parsers: [ function(d) { return d.split(/\s+/) } ] },
-/*                                        { key: 'Memory',
+*//*                                        { key: 'Memory',
                                           type: 'input',
                                           ngModelElAttrs: { 'min': '0' },
                                           templateOptions: {
@@ -80,7 +83,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                                 label: 'Total memory limit (MB)',
                                                 placeholder: 'e.g: 32',
                                                 description: 'Set the total memory limit (memory + swap); set -1 to disable swap You must use this with memory and make the swap value larger than memory' },
-                                          parsers: [ function(d) { return d * 1048576 } ] },*/
+                                          parsers: [ function(d) { return d * 1048576 } ] },*//*
                                         { key: 'AttachStdin',
                                           type: 'checkbox',
                                           defaultValue: false,
@@ -135,7 +138,7 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                         function(fv) { LoadingModal.hide() } );
                 },function(error_val) { LoadingModal.hide() } );
          };
-      };
+      };*/
 
      Image.query( function(d) {
         $scope.imagesGrid.data = [];
