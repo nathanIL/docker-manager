@@ -47,7 +47,8 @@ angular.module('manager.services.ui', [])
        This is a menu which contains all the needed attributes to start / run an image.
        It takes the controller scope object on which it runs.
     */
-    .factory('StartModal', ['$modal','Container','LoadingModal',function($modal,Container,LoadingModal) {
+    .factory('StartModal', ['$modal','Container','LoadingModal','Alertbox',
+     function($modal,Container,LoadingModal,Alertbox) {
             return {
                 run: function(scope,id,name) {
                        scope.selectedImageNameModalAction = name;
@@ -160,8 +161,8 @@ angular.module('manager.services.ui', [])
                                 cs.$create(function(success_val,resp_headers) {
                                         cs.$start({ id: success_val.Id },
                                         function(sv,rh) { LoadingModal.hide() },
-                                        function(fv) { LoadingModal.hide() } );
-                                },function(error_val) { LoadingModal.hide() } );
+                                        function(serr) { LoadingModal.hide(); Alertbox({ title:"Container created, but failed to start" }).warn({ text:serr.data }) } );
+                                },function(cerr) { LoadingModal.hide(); Alertbox({ title:"Could not create container"}).warn({ text:cerr.data })  } );
                          };
               }
             };

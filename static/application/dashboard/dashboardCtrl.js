@@ -64,8 +64,7 @@ angular.module('manager.components.dashboard',[])
                                              updateContainers(); },
 
                         function(resp) { LoadingModal.hide();
-                                         Alertbox.warn({ title: "Could not perform operation (Code " + resp.status +")",
-                                                         text: resp.statusText });
+                                         Alertbox({ title: "Could not perform operation (Code " + resp.status +")" }).warn({ text: resp.statusText });
                                          updateContainers(); });
     };
     updateContainers();

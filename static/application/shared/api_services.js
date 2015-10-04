@@ -26,7 +26,7 @@ angular.module('manager.services.api', ['ngResource'])
         }, {
             query: {method: 'GET', params: {all: 0, action: 'json'}, isArray: true},
             get: {method: 'GET', params: {action: 'json'}},
-            start: {method: 'POST', params: {id: '@id', action: 'start'}},
+            start: {method: 'POST', params: {id: '@id', action: 'start'}, responseType: "text", isArray: false },
             stop: {method: 'POST', params: {id: '@id', t: 5, action: 'stop'}},
             restart: {method: 'POST', params: {id: '@id', t: 5, action: 'restart'}},
             kill: {method: 'POST', params: {id: '@id', action: 'kill'}},
