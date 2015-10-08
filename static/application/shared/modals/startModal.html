@@ -1,6 +1,36 @@
 <div class="modal-header">
     <h3 class="modal-title">Container <small>({{ selectedImageNameModalAction }})</small> creation & start menu</h3>
 </div>
+
+<!-- ================================ Templates =====================================-->
+
+<!-- Template to allow Key / Value inputs for formly -->
+<script type="text/ng-template" id="mapType-template.html">
+    <label>{{ options.templateOptions.label }}</label>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th data-field="id">Variable</th>
+            <th data-field="name">Value</th>
+            <th data-field="price">Add / Remove</th>
+        </tr>
+        </thead>
+        <tr>
+            <td><input type="text" class="form-control" ng-model="key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" class="form-control" ng-model="value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td><button class="btn btn-default" type="button" ng-click="add(key,value)">Add</button></td>
+        </tr>
+        <tr ng-repeat="element in model[options.key]">
+            <td><input type="text" class="form-control" ng-model="element.key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" class="form-control" ng-model="element.value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td><button class="btn btn-default" type="button" ng-click="remove($index)">Remove</button></td>
+        </tr>
+    </table>
+    <hr/>
+</script>
+
+<!-- ======================= End of templates ============================= -->
+
 <div class="modal-body">
     <div class="alert alert-info" role="alert">
         The following properties are equivalent to Docker's <i>run</i> command ones.

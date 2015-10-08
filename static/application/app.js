@@ -54,6 +54,20 @@ angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.service
         }
       }
     }]);
+    formlyConfigProvider.setType({ name: 'mapType',
+                                   templateUrl: 'mapType-template.html',
+                                    controller: function($scope) {
+                                                $scope.add = function(k,v) {
+                                                  if ($scope.model[$scope.options.key] === undefined) {
+                                                    $scope.model[$scope.options.key] = [];
+                                                  }
+                                                  $scope.model[$scope.options.key].push({ key: k, value: v})
+                                                }
+                                                $scope.remove = function(index) {
+                                                    $scope.model[$scope.options.key].splice(index,1)
+                                                }
+                                              }
+                                        });
  })
  .constant('APPLICATION_NAME','Docker Manager')
  .constant('APPLICATION_VERSION','v1.0.0')
