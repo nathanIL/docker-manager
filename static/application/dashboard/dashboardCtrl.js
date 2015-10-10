@@ -1,6 +1,6 @@
 angular.module('manager.components.dashboard',[])
-  .controller('dashboardCtrl',['$scope','Image','Container','Popover','ContainerStatus','LoadingModal','Alertbox',
-  function($scope,Image,Container,Popover,ContainerStatus,LoadingModal,Alertbox) {
+  .controller('dashboardCtrl',['$scope','Image','Container','System','Popover','ContainerStatus','LoadingModal','Alertbox',
+  function($scope,Image,Container,System,Popover,ContainerStatus,LoadingModal,Alertbox) {
 
     /* Populate the Images creation trend chart */
     Image.query(function(d) {
@@ -16,15 +16,52 @@ angular.module('manager.components.dashboard',[])
         for (var k in aggregator) {
             images_chart_data.push({ time: k, images: aggregator[k] });
         }
-        Morris.Line({ element: 'ImagesCreationTrendChart',
+        Morris.Bar({ element: 'ImagesCreationTrendChart',
                       data: images_chart_data,
                       xkey: 'time',
                       ykeys: ['images'],
                       labels: ['Images'],
-                      parseTime: false });
+                      hideHover: 'always',
+                      stacked: true });
     });
-    /* End of Images creation trend chart population */
+    /* End of Images creation trend bar population */
 
+    /* Operating system related bars */
+    System.get(function(d) {
+            var parsed = new Map();
+
+            //console.log( JSON.stringify(d) );
+            /* Storage */
+            d['DriverStatus'].find(function(e) {
+                switch(e[0]) {
+                    case "Data Space Total":
+                        parsed["Data Space Total"] =  e[1].split(/\s+/);
+                        break;
+                    case "Data Space Used":
+                        parsed["Data Space Used"] = e[1].split(/\s+/);
+                        break;
+                    case "Metadata Space Used":
+                        parsed["Metadata Space Used"] = e[1].split(/\s+/);
+                        break;
+                    case "Metadata Space Total":
+                        parsed["Metadata Space Total"] = e[1].split(/\s+/);
+                        break;
+                }
+            });
+            Morris.Donut({
+                  element: 'StorageBar',
+                  formatter: function (y, data) { return y[0] + ' ' + y[1] },
+                  data: [{ label: 'Total', value: parsed["Data Space Total"] },
+                         { label: 'Used', value: parsed["Data Space Used"] }]
+            });
+            Morris.Donut({
+                  element: 'MetadataStorageBar',
+                  formatter: function (y, data) { return y[0] + ' ' + y[1] },
+                  data: [{ label: 'Total', value: parsed["Metadata Space Total"] },
+                         { label: 'Used', value: parsed["Metadata Space Used"] }]
+            });
+    });
+    /* End of Operating system related bars */
 
     /* Containers chart and table */
     $scope.containers = [];
@@ -74,8 +111,8 @@ angular.module('manager.components.dashboard',[])
      * TODO: I guess we can save these strings in a centralize location so i18n later will be easier to implement
     */
     Popover.show({ element: '#ImagesCreationTrendChartPopOver',
-                    title: 'Images creation trend graph',
-                    content: 'This graph shows the images creation trend. The dates reflect the image ' +
+                    title: 'Images creation trend bar',
+                    content: 'This bar shows the images creation trend. The dates reflect the image ' +
                              'creation date and not the pull date.<br/><br/>' +
                              '<b>Image:</b> A Docker image is a read-only template. For example, an image could contain an Ubuntu operating system with Apache and your web application installed. Images are used to create Docker containers. Docker provides a simple way to build new images or update existing images, or you can download Docker images that other people have already created. Docker images are the build component of Docker.'});
 
@@ -94,7 +131,14 @@ angular.module('manager.components.dashboard',[])
                              '<li><u>Pause</u>: Pause all processes within a container</li>' +
                              '<li><u>Unpause</u>: Unpause all processes within a paused container</li>' +
                              '<li><u>Remove</u>: Remove the container and all of its volumes</li>' +
-                             '</ul>'
-    });
+                             '</ul>'});
+
+    Popover.show({ element: '#StorageBarPopOver',
+                    title: 'Operating system storage bar',
+                    content: 'This bar shows the allotted amount of storage available for the docker\'s daemon storage driver'});
+
+    Popover.show({ element: '#MetadataStorageBarPopOver',
+                    title: 'Docker\'s Metadata storage bar',
+                    content: 'This bar shows the allotted amount of metadata storage available for the docker\'s daemon storage driver'});
 
   }]);
