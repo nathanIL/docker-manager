@@ -7,23 +7,26 @@
 <!-- Template to allow Key / Value inputs for formly -->
 <script type="text/ng-template" id="mapType-template.html">
     <label>{{ options.templateOptions.label }}</label>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-condensed">
         <thead>
         <tr>
-            <th data-field="id">Variable</th>
-            <th data-field="name">Value</th>
-            <th data-field="price">Add / Remove</th>
+            <th>#</th>
+            <th>{{ options.templateOptions.key_name }}</th>
+            <th>{{ options.templateOptions.value_name }}</th>
+            <th>Add / Remove</th>
         </tr>
         </thead>
         <tr>
-            <td><input type="text" class="form-control" ng-model="key" placeholder="{{ options.templateOptions.key_name }}"></td>
-            <td><input type="text" class="form-control" ng-model="value" placeholder="{{ options.templateOptions.value_name }}"></td>
-            <td><button class="btn btn-default" type="button" ng-click="add(key,value)">Add</button></td>
+            <td></td>
+            <td><input type="text" class="form-control" ng-model="_mp_key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" class="form-control" ng-model="_mp_value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td><button class="btn btn-default" type="button" ng-click="add()"><span class="glyphicon glyphicon-plus"></span></button></td>
         </tr>
         <tr ng-repeat="element in model[options.key]">
+            <td>{{ $index + 1 }}</td>
             <td><input type="text" class="form-control" ng-model="element.key" placeholder="{{ options.templateOptions.key_name }}"></td>
             <td><input type="text" class="form-control" ng-model="element.value" placeholder="{{ options.templateOptions.value_name }}"></td>
-            <td><button class="btn btn-default" type="button" ng-click="remove($index)">Remove</button></td>
+            <td><button class="btn btn-default" type="button" ng-click="remove($index)"><span class="glyphicon glyphicon-minus"></span></button></td>
         </tr>
     </table>
     <hr/>

@@ -84,40 +84,30 @@ angular.module('manager.services.ui', [])
                                                                 label: 'Entrypoint script',
                                                                 placeholder: '/bin/sh -c',
                                                                 description: 'The very first command to run in the container upon start' },
-                                                          parsers: [ function(d) { return d.split(/\s+/) } ] },
+                                                          parsers: [ function(d) { return d.length ? d.split(/\s+/) : null } ] },
                                                         { key: 'Cmd',
                                                           type: 'input',
                                                           templateOptions: {
                                                                 type: 'text',
                                                                 label: 'Command line',
                                                                 description: 'Arguments to Entrypoint' },
-                                                          parsers: [ function(d) { return d.split(/\s+/) } ] },
-                                                          { key: 'environment_variables_map',
-                                                            type: 'mapType',
-                                                            noFormControl: true,
-                                                            templateOptions: {
+                                                          parsers: [ function(d) { return d.length ? d.split(/\s+/) : null } ] },
+                                                        { key: 'Env',
+                                                          type: 'mapType',
+                                                          noFormControl: true,
+                                                          templateOptions: {
                                                                 label: 'Environment variables',
                                                                 key_name: 'Variable name',
-                                                                value_name: 'Variable value'                                                            }
-                                                          },
-                /*                                        { key: 'Memory',
-                                                          type: 'input',
-                                                          ngModelElAttrs: { 'min': '0' },
-                                                          templateOptions: {
-                                                                type: 'number',
-                                                                label: 'Memory limit (MB)',
-                                                                placeholder: 'e.g: 16',
-                                                                description: 'Set the container memory limit (in megabytes)' },
-                                                          parsers: [ function(d) { return d * 1048576 } ] },
-                                                        { key: 'MemorySwap',
-                                                          type: 'input',
-                                                          ngModelElAttrs: { 'min': '-1' },
-                                                          templateOptions: {
-                                                                type: 'number',
-                                                                label: 'Total memory limit (MB)',
-                                                                placeholder: 'e.g: 32',
-                                                                description: 'Set the total memory limit (memory + swap); set -1 to disable swap You must use this with memory and make the swap value larger than memory' },
-                                                          parsers: [ function(d) { return d * 1048576 } ] },*/
+                                                                value_name: 'Variable value',
+                                                                transform: function(v) {
+                                                                    var variables = [];
+                                                                    angular.forEach(v,function(v,k) {
+                                                                        variables.push(v['key'] + "=" + v['value'])
+                                                                    });
+                                                                    return variables
+                                                                 }
+                                                          }
+                                                        },
                                                         { key: 'AttachStdin',
                                                           type: 'checkbox',
                                                           defaultValue: false,
@@ -159,7 +149,11 @@ angular.module('manager.services.ui', [])
                                 LoadingModal.show("Starting: <b>" + name + "</b>, please wait");
                                 // TODO: Merge both startParameterFields and HostConfigParameterFields and used the merged Map instead of regularStartParameters
                                 angular.forEach(scope.regularStartParameters, function(v,k) {
-                                        data[k] = v;
+                                        if ( angular.isFunction(scope.regularStartParameters[k + '_transform']) ) {
+                                            data[k] = scope.regularStartParameters[k + '_transform'](v);
+                                        } else {
+                                            data[k] = v;
+                                        }
                                   } );
                                 data.Image = id;
                                 var cs = new Container(data);

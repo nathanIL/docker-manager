@@ -16,8 +16,8 @@ angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.service
  } ])
  /* Config formly */
  .config(function(formlyConfigProvider) {
-   // Hostname input type
-   formlyConfigProvider.setType([{
+   formlyConfigProvider.setType([
+   { /* A type for representing a hostname input */
       name: 'hostname',
       extends: 'input',
       defaultOptions: {
@@ -53,21 +53,32 @@ angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.service
           description: 'The domain name to use'
         }
       }
+    },
+    { /* A type for representing a a Key value pairs in a table
+         in the templateOptions the following should be available:
+         1) key_name - Stands for the key name that will be used in the view (model value is 'key').
+         2) key_value - Stand for the key value that will be used in the view (model value is 'value').
+         3) transform - a callback (function) that will be used to transform that data. it will have a single parameter
+            holding map / object with the model info ({ key: ... ,value: ... }).
+
+         Rest of the values are similar to the other angular-formly types.
+        */
+      name: 'mapType',
+      templateUrl: 'mapType-template.html',
+      controller: function($scope) {
+             $scope.add = function() {
+                 if ($scope.model[$scope.options.key] === undefined) {
+                     $scope.model[$scope.options.key] = [];
+                     $scope.model[$scope.options.key + '_transform'] = $scope.options.templateOptions.transform || function(v) { return v };
+                 }
+                 $scope.model[$scope.options.key].unshift({ key: $scope._mp_key, value: $scope._mp_value });
+                 $scope._mp_key = $scope._mp_value = "";
+             }
+             $scope.remove = function(index) {
+                 $scope.model[$scope.options.key].splice(index,1)
+             }
+       }
     }]);
-    formlyConfigProvider.setType({ name: 'mapType',
-                                   templateUrl: 'mapType-template.html',
-                                    controller: function($scope) {
-                                                $scope.add = function(k,v) {
-                                                  if ($scope.model[$scope.options.key] === undefined) {
-                                                    $scope.model[$scope.options.key] = [];
-                                                  }
-                                                  $scope.model[$scope.options.key].push({ key: k, value: v})
-                                                }
-                                                $scope.remove = function(index) {
-                                                    $scope.model[$scope.options.key].splice(index,1)
-                                                }
-                                              }
-                                        });
  })
  .constant('APPLICATION_NAME','Docker Manager')
  .constant('APPLICATION_VERSION','v1.0.0')
