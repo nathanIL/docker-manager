@@ -20,12 +20,17 @@
             <td></td>
             <td><input type="text" class="form-control" ng-model="_mp_key" placeholder="{{ options.templateOptions.key_name }}"></td>
             <td><input type="text" class="form-control" ng-model="_mp_value" placeholder="{{ options.templateOptions.value_name }}"></td>
-            <td><button class="btn btn-default" type="button" ng-click="add()"><span class="glyphicon glyphicon-plus"></span></button></td>
+            <td>
+                <button class="btn btn-default" ng-disabled="! valid_kv_input(_mp_key,_mp_value)" type="button" ng-click="add()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <span class="glyphicon glyphicon-exclamation-sign" ng-show="_mp_key.length > 0 && ! valid_kv_input(_mp_key,_mp_value)"></span>
+            </td>
         </tr>
         <tr ng-repeat="element in model[options.key]">
             <td>{{ $index + 1 }}</td>
-            <td><input type="text" class="form-control" ng-model="element.key" placeholder="{{ options.templateOptions.key_name }}"></td>
-            <td><input type="text" class="form-control" ng-model="element.value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td><input type="text" ng-disabled="true" class="form-control" ng-model="element.key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" ng-disabled="true" class="form-control" ng-model="element.value" placeholder="{{ options.templateOptions.value_name }}"></td>
             <td><button class="btn btn-default" type="button" ng-click="remove($index)"><span class="glyphicon glyphicon-minus"></span></button></td>
         </tr>
     </table>

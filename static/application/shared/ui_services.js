@@ -99,6 +99,7 @@ angular.module('manager.services.ui', [])
                                                                 label: 'Environment variables',
                                                                 key_name: 'Variable name',
                                                                 value_name: 'Variable value',
+                                                                validator: function(k,v) { return /^[a-zA-Z_]+[a-zA-Z0-9_]*$/.test(k) },
                                                                 transform: function(v) {
                                                                     var variables = [];
                                                                     angular.forEach(v,function(v,k) {
