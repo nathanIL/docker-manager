@@ -99,13 +99,50 @@ angular.module('manager.services.ui', [])
                                                                 label: 'Environment variables',
                                                                 key_name: 'Variable name',
                                                                 value_name: 'Variable value',
-                                                                validator: function(k,v) { return /^[a-zA-Z_]+[a-zA-Z0-9_]*$/.test(k) },
+                                                                validator: function(scope,k,v) {  scope.error = "Invalid environment variable";
+                                                                                                  return /^[a-zA-Z_]+[a-zA-Z0-9_]*$/.test(k) },
                                                                 transform: function(v) {
                                                                     var variables = [];
                                                                     angular.forEach(v,function(v,k) {
                                                                         variables.push(v['key'] + "=" + v['value'])
                                                                     });
                                                                     return variables
+                                                                 }
+                                                          }
+                                                        },
+                                                        { key: 'Labels',
+                                                          type: 'mapType',
+                                                          noFormControl: true,
+                                                          templateOptions: {
+                                                                label: 'Container labels',
+                                                                key_name: 'Label name',
+                                                                value_name: 'Label value',
+                                                                validator: function(scope,k,v) {  scope.error = "Both label name and value must be non empty";
+                                                                                                  return k.length > 0 && v.length > 0 },
+                                                                transform: function(v) {
+                                                                    var labels = {};
+                                                                    angular.forEach(v,function(v,k) {
+                                                                        labels[v.key] = v.value;
+                                                                    });
+                                                                    return labels
+                                                                 }
+                                                          }
+                                                        },
+                                                        { key: 'Volumes',
+                                                          type: 'mapType',
+                                                          noFormControl: true,
+                                                          templateOptions: {
+                                                                label: '',
+                                                                key_name: 'Container Volume',
+                                                                value_name: 'Label value',
+                                                                validator: function(scope,k,v) {  scope.error = "Both label name and value must be non empty";
+                                                                                                  return k.length > 0 && v.length > 0 },
+                                                                transform: function(v) {
+                                                                    var labels = {};
+                                                                    angular.forEach(v,function(v,k) {
+                                                                        labels[v.key] = v.value;
+                                                                    });
+                                                                    return labels
                                                                  }
                                                           }
                                                         },
@@ -160,6 +197,7 @@ angular.module('manager.services.ui', [])
                                 var cs = new Container(data);
                                 // TODO: Possible a problem to solve with $q?
                                 // TODO: On errors, show the error message
+                                console.log(JSON.stringify(data));
                                 cs.$create(function(success_val,resp_headers) {
                                         cs.$start({ id: success_val.Id },
                                         function(sv,rh) { LoadingModal.hide() },

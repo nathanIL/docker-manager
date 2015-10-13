@@ -24,7 +24,11 @@
                 <button class="btn btn-default" ng-disabled="! valid_kv_input(_mp_key,_mp_value)" type="button" ng-click="add()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
-                <span class="glyphicon glyphicon-exclamation-sign" ng-show="_mp_key.length > 0 && ! valid_kv_input(_mp_key,_mp_value)"></span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="alert alert-warning animate-show" ng-show="_mp_key.length > 0 && ! valid_kv_input(_mp_key,_mp_value)" role="alert"><span class="glyphicon glyphicon-exclamation-sign"><small> {{ error }}</small></span></div>
             </td>
         </tr>
         <tr ng-repeat="element in model[options.key]">

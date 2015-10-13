@@ -1,6 +1,5 @@
-angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.services.api','formly','formlyBootstrap',
-                          'manager.services.ui','manager.filters','manager.navbar','manager.components.dashboard',
-                          'manager.components.images'])
+angular.module('manager',['ngRoute','ngAnimate','ngResource','ui.bootstrap','manager.services.api','formly','formlyBootstrap',
+                          'manager.services.ui','manager.filters','manager.navbar','manager.components.dashboard','manager.components.images'])
 /* Config routes */
  .config(['$routeProvider', function($routeProvider) {
     $routeProvider.
@@ -60,14 +59,18 @@ angular.module('manager',['ngRoute','ngResource','ui.bootstrap','manager.service
          2) key_value - Stand for the key value that will be used in the view (model value is 'value').
          3) transform - a callback (function) that will be used to transform that data. it will have a single parameter
             holding map / object with the model info ({ key: ... ,value: ... }).
-         4) validator:
+         4) validator: func(scope.key,value)
 
          Rest of the values are similar to the other angular-formly types.
         */
       name: 'mapType',
       templateUrl: 'mapType-template.html',
       controller: function($scope) {
-             $scope.valid_kv_input = $scope.options.templateOptions.validator || function(k,v) { return false };
+             $scope.error = "";
+             $scope.valid_kv_input = function(k,v) {
+                                        var func = $scope.options.templateOptions.validator || function(scope,k,v) { return false }
+                                        return func($scope,k,v);
+                                     };
              $scope._mp_key = $scope._mp_value = "";
              $scope.add = function() {
                  if ($scope.model[$scope.options.key] === undefined) {

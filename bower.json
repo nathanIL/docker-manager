@@ -30,6 +30,7 @@
     "font-awesome": "~4.4.0",
     "morris.js": "morrisjs#~0.5.1",
     "sweetalert": "~1.1.0",
-    "webui-popover": "~1.1.6"
+    "webui-popover": "~1.1.6",
+    "angular-animate": "~1.4.7"
   }
 }
