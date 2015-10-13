@@ -128,24 +128,6 @@ angular.module('manager.services.ui', [])
                                                                  }
                                                           }
                                                         },
-                                                        { key: 'Volumes',
-                                                          type: 'mapType',
-                                                          noFormControl: true,
-                                                          templateOptions: {
-                                                                label: '',
-                                                                key_name: 'Container Volume',
-                                                                value_name: 'Label value',
-                                                                validator: function(scope,k,v) {  scope.error = "Both label name and value must be non empty";
-                                                                                                  return k.length > 0 && v.length > 0 },
-                                                                transform: function(v) {
-                                                                    var labels = {};
-                                                                    angular.forEach(v,function(v,k) {
-                                                                        labels[v.key] = v.value;
-                                                                    });
-                                                                    return labels
-                                                                 }
-                                                          }
-                                                        },
                                                         { key: 'AttachStdin',
                                                           type: 'checkbox',
                                                           defaultValue: false,
