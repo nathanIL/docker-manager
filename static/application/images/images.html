@@ -2,16 +2,18 @@
 <!-- ng-template for the action button group for each image -->
 <script type="text/ng-template" id="actionButtonGroup.html">
     <div class="btn-group btn-group-xs" role="group">
-        <button type="button" ng-click="grid.appScope.openStartModalAction(row.entity.id,row.entity.name)" class="btn btn-primary">
-            <div class="glyphicon glyphicon-play"> start</div>
+        <button type="button" ng-click="grid.appScope.openStartModalAction(row.entity.id,row.entity.name)"
+                class="btn btn-primary btn-xs">Start
         </button>
-        <button type="button" class="btn btn-info">
-            <div class="glyphicon glyphicon-info-sign"> info</div>
+        <button type="button" ng-click="grid.appScope.openInfoModal(row.entity.id,row.entity.name)"
+                class="btn btn-info btn-xs">Info
         </button>
-        <button type="button" class="btn btn-danger">
-            <div class="glyphicon glyphicon-remove"> remove</div>
-        </button>
+        <button type="button" class="btn btn-danger btn-xs">Remove</button>
     </div>
+</script>
+<!-- ng-template for the image information modal -->
+<script type="text/ng-template" id="imageInfo.html">
+
 </script>
 <!-- =============================== End of Templates ====================================== -->
 
@@ -21,13 +23,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    Images <small>Images related operations and information</small>
+                    Images
+                    <small>Images related operations and information</small>
                 </h1>
                 <div class="alert alert-info" role="alert">
                     <span class="glyphicon glyphicon-question-sign"></span>
                     <b>This section provides the means to interact with the available (<i>pull</i>ed) Docker images, and
-                    to resent all needed information on each and every image available.
-                    Once an image has been started, further interactions can be made on the <i>Containers</i> section.</b>
+                        to resent all needed information on each and every image available.
+                        Once an image has been started, further interactions can be made on the <i>Containers</i>
+                        section.</b>
                 </div>
             </div>
         </div>

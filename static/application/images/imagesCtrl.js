@@ -1,6 +1,6 @@
 angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
-  controller('imagesCtrl',['$scope','Image','StartModal',
-             function($scope,Image,StartModal) {
+  controller('imagesCtrl',['$scope','$modal', 'Image','StartModal',
+             function($scope,$modal,Image,StartModal) {
 
     $scope.imagesGrid = {
                 columnDefs: [ { field: 'name',    enableHiding: false, enableSorting: true },
@@ -12,26 +12,39 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
                                 enableSorting: false,
                                 cellTemplate: 'actionButtonGroup.html' } ]
 
-      };
-
+    };
+    $scope.openInfoModal = function(id, name) {
+       /* Opens the Image Information modal window.
+		*  Parameters:
+		*  id: Docker image id (12 chars)
+		*  name: image name
+		*/
+		// TODO: Get the image info, process it using json-human, and present on the modal.
+		var modalInstance = $modal.open({
+                          animation: true,
+                          template: 'imageInfo.html',
+                          scope: $scope,
+                          size: 'lg',
+                        });
+    };
     $scope.removeImage = function() {};
-
-    /* Opens the Container Run modal window
-    *  Parameters:
-    *  id: Docker image id (12 chars)
-    */
-      $scope.openStartModalAction = function(id,name) {
-                StartModal.run($scope,id,name);
-      };
+    $scope.openStartModalAction = function(id, name) {
+       /* Opens the Container Run modal window.
+		*  Parameters:
+		*  id: Docker image id (12 chars)
+		*  name: image name
+		*/
+		StartModal.run($scope, id, name);
+    };
 
      Image.query( function(d) {
         $scope.imagesGrid.data = [];
-        angular.forEach(d, function(v,k) {
+        angular.forEach(d, function(v, k) {
                 var date = new Date(0);
                 date.setUTCSeconds(v['Created']);
                 var formatted_date = date.getDate() + "/" + ( date.getMonth() + 1) + "/" + date.getFullYear();
 
-                angular.forEach(v.RepoTags, function(vs,ks) {
+                angular.forEach(v.RepoTags, function(vs, ks) {
                     var parts = vs.split(':');
                     var tag = parts.pop()
                     var name = parts.join(':');
