@@ -1,0 +1,73 @@
+<div class="modal-header">
+    <h3 class="modal-title">Container <small>({{ selectedImageNameModalAction }})</small> creation & start menu</h3>
+</div>
+
+<!-- ================================ Templates =====================================-->
+
+<!-- Template to allow Key / Value inputs for formly -->
+<script type="text/ng-template" id="mapType-template.html">
+    <label>{{ options.templateOptions.label }}</label>
+    <table class="table table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>{{ options.templateOptions.key_name }}</th>
+            <th>{{ options.templateOptions.value_name }}</th>
+            <th>Add / Remove</th>
+        </tr>
+        </thead>
+        <tr>
+            <td></td>
+            <td><input type="text" class="form-control" ng-model="_mp_key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" class="form-control" ng-model="_mp_value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td>
+                <button class="btn btn-default" ng-disabled="! valid_kv_input(_mp_key,_mp_value)" type="button" ng-click="add()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <div class="alert alert-warning animate-show" ng-show="_mp_key.length > 0 && ! valid_kv_input(_mp_key,_mp_value)" role="alert"><span class="glyphicon glyphicon-exclamation-sign"><small> {{ error }}</small></span></div>
+            </td>
+        </tr>
+        <tr ng-repeat="element in model[options.key]">
+            <td>{{ $index + 1 }}</td>
+            <td><input type="text" ng-disabled="true" class="form-control" ng-model="element.key" placeholder="{{ options.templateOptions.key_name }}"></td>
+            <td><input type="text" ng-disabled="true" class="form-control" ng-model="element.value" placeholder="{{ options.templateOptions.value_name }}"></td>
+            <td><button class="btn btn-default" type="button" ng-click="remove($index)"><span class="glyphicon glyphicon-minus"></span></button></td>
+        </tr>
+    </table>
+    <hr/>
+</script>
+
+<!-- ======================= End of templates ============================= -->
+
+<div class="modal-body">
+    <div class="alert alert-info" role="alert">
+        The following properties are equivalent to Docker's <i>run</i> command ones.
+        See the official Docker docs for additional information.
+    </div>
+    <form ng-submit="modalRun()" name="startForm" novalidate>
+        <tabset justified="true">
+            <!-- Parameters tab (see Docker Remote API docs) -->
+            <tab heading="Parameters" active="true">
+                <formly-form model="regularStartParameters" fields="startParameterFields">
+                    <div class="modal-footer">
+                        <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
+                        <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
+                    </div>
+                </formly-form>
+            </tab>
+            <!-- Host Config tab (see Docker Remote API docs) -->
+            <tab heading="Host Config">
+                <formly-form model="hostConfigParameters" fields="HostConfigParameterFields">
+                    <div class="modal-footer">
+                        <button type="submit" ng-disabled="startForm.$invalid" class="btn btn-primary">Run</button>
+                        <button class="btn btn-warning" type="button" ng-click="modalAbort()">Abort</button>
+                    </div>
+                </formly-form>
+            </tab>
+        </tabset>
+    </form>
+</div>

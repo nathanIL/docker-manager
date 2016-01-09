@@ -7,91 +7,137 @@
                 <h1 class="page-header">
                     Dashboard <small>Statistics and Overview</small>
                 </h1>
-                <div class="alert alert-success" role="alert">The dashboard shows a summary of all sections available.
-                    Select the specific section on the left panel to access it.
+                <div class="alert alert-info" role="alert">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                    <b>The dashboard shows a summary of all sections available and an overall status of the system</b>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="#/" id="ImagesCreationTrendChartPopOver">
-                            <h3 class="panel-title">
-                                <i class="fa fa-bar-chart-o"></i> Images creation trend
-                            </h3>
-                        </a>
-                    </div>
-                    <div class="panel-body">
-                        <div id="ImagesCreationTrendChart" style="height: 250px;"></div>
-                        <div class="text-right">
-                            <a href="#/images">Go to Images section <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="panel panel-default">
+                <div class="panel-heading section-heading">
+                    Images related information & quick details.
+                    For further information, please navigate to the <i>Images</i> section </div>
+                <div class="panel-body section-body">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a id="ImagesCreationTrendChartPopOver" href="#/"><i class="fa fa-bar-chart-o"></i></a> Images creation trend
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="ImagesCreationTrendChart" style="height: 250px;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <hr>
-
         <div class="row">
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a href="#/" id="ContainersChartPopOver">
-                            <h3 class="panel-title">
-                                <i class="fa fa-hdd-o"></i> Containers
-                            </h3>
-                        </a>
+            <div class="panel panel-default">
+                <div class="panel-heading section-heading">
+                    Containers related information & quick container operations.
+                    For further information, please navigate to the <i>Containers</i> section </div>
+                <div class="panel-body section-body">
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a id="ContainersChartPopOver" href="#/"><i class="fa fa-hdd-o"></i></a> Containers
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="ContainersChart" style="height: 250px;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div id="ContainersChart" style="height: 250px;"></div>
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><a id="ContainersListPopOver" href="#/"><i class="fa fa-hdd-o"></i></a> Containers list</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Image</th>
+                                        <th>Id</th>
+                                        <th>Status</th>
+                                        <th>Status time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="container in containers" class="{{ container|containerstatus:'style' }}">
+                                        <td>{{ container|containernames }}</td>
+                                        <td>{{ container|containerimage }}</td>
+                                        <td>{{ container.Id.substring(0,12) }}</td>
+                                        <td>{{ container|containerstatus:'status' }}</td>
+                                        <td>{{ container|containerstatus:'time' }}</td>
+                                        <!-- Action Button -->
+                                        <td>
+                                            <div class="btn-group" dropdown dropdown-append-to-body>
+                                                <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="{{ spinner.isSpinning }}">
+                                                    Action <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem" ng-repeat="sa in container.actions"><a href="" ng-click="action(container.Id,sa)">{{ sa }}</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-hdd-o"></i> Containers list</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Names</th>
-                                    <th>Id</th>
-                                    <th>Status</th>
-                                    <th>Started</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="container in containers">
-                                    <td>{{ container|containernames }}</td>
-                                    <td>{{ container.Id.substring(0,12) }}</td>
-                                    <td>{{ container|containerstatus:'status' }}</td>
-                                    <td>{{ container|containerstatus:'time' }}</td>
-                                    <!-- Action Button -->
-                                    <td>
-                                      <div class="btn-group" dropdown is-open="status.isopen">
-                                          <button id="single-button" type="button" class="btn btn-primary" dropdown-toggle ng-disabled="disabled">
-                                            Container Actions <span class="caret"></span>
-                                          </button>
-                                          <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-                                            <li role="menuitem" ng-repeat="sa in container.actions"><a href="" ng-click="action(container.Id,sa)">{{ sa }}</a></li>
-                                          </ul>
-                                      </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-right">
-                            <a href="#/containers">Go to Containers section <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading section-heading">Docker and general operating system related information & quick details.</div>
+                <div class="panel-body section-body">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a id="StorageBarPopOver" href="#/"><i class="fa fa-hdd-o"></i></a> System storage / HDD space
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="StorageBar" style="height: 250px;"></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a id="MetadataStorageBarPopOver" href="#/"><i class="fa fa-hdd-o"></i></a> Metadata space
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="MetadataStorageBar" style="height: 250px;"></div>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a id="ZZZ" href="#/"><i class="fa fa-hdd-o"></i></a> Others
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="ZZZ1" style="height: 250px;"></div>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>

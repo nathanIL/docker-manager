@@ -12,21 +12,22 @@
     <title>Docker Manager</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static',filename='assets/images/docker.png') }}">
-    <!-- Bootstrap Core CSS -->
-    <link href="{{ url_for('static',filename='assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="{{ url_for('static',filename='assets/application/images/docker.png') }}">
     <!-- Custom CSS -->
-    <link href="{{ url_for('static',filename='assets/css/main.css') }}" rel="stylesheet">
-
+    <link href="{{ url_for('static',filename='assets/application/css/main.css') }}" rel="stylesheet">
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('bower.static',filename='bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Morris Charts CSS -->
-    <link href="{{ url_for('static',filename='assets/css/plugins/morris.css') }}" rel="stylesheet">
+    <link href="{{ url_for('bower.static',filename='morris.js/morris.css') }}" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="{{ url_for('static',filename='assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('bower.static',filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- PopOver Plugin CSS -->
-    <link href="{{ url_for('static',filename='assets/css/plugins/jquery.webui-popover.css') }}" rel="stylesheet">
-    <!-- Sticky bottom footer -->
-    <link href="{{ url_for('static',filename='assets/css/footer.css') }}" rel="stylesheet">
+    <link href="{{ url_for('bower.static',filename='webui-popover/dist/jquery.webui-popover.min.css') }}" rel="stylesheet">
+    <!-- UI Grid Plugin CSS -->
+    <link href="{{ url_for('bower.static',filename='angular-ui-grid/ui-grid.min.css') }}" rel="stylesheet">
+    <!-- SweetAlert CSS -->
+    <link href="{{ url_for('bower.static',filename='sweetalert/dist/sweetalert.css') }}" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,9 +38,7 @@
 </head>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="navbarCtrl">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -63,24 +62,36 @@
     </div>
 
     <!-- jQuery -->
-    <script src="{{ url_for('static',filename='assets/js/jquery.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ url_for('static',filename='assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- Morris Charts JavaScript -->
-    <script src="{{ url_for('static',filename='assets/js/plugins/morris/raphael.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='assets/js/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='raphael/raphael-min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='morris.js/morris.min.js') }}"></script>
     <!-- PopOver JavaScript plugin -->
-    <script src="{{ url_for('static',filename='assets/js/plugins/webui-popover/jquery.webui-popover.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='webui-popover/dist/jquery.webui-popover.min.js') }}"></script>
     <!-- AngularJS related JavaScript -->
-    <script src="{{ url_for('static',filename='assets/js/angularjs/1.3.15/angular.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='assets/js/angularjs/1.3.15/angular-resource.min.js') }}"></script>
-    <script src="{{ url_for('static',filename='assets/js/angularjs/1.3.15/angular-route.min.js') }}"></script>
-    <!--<script src="{{ url_for('static',filename='assets/js/angularjs/1.3.15/angular-sanitize.min.js') }}"></script>-->
+    <script src="{{ url_for('bower.static',filename='angular/angular.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='angular-resource/angular-resource.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='angular-route/angular-route.min.js') }}"></script>
     <!-- ui-bootstrap Angular plugin -->
-    <script src="{{ url_for('static',filename='assets/js/plugins/ui-bootstrap/0.13.3/ui-bootstrap-0.13.3.min.js') }}"></script>
-    <!-- Project related JavaScript -->
+    <script src="{{ url_for('bower.static',filename='angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
+    <!-- UI-Grid Angular plugin -->
+    <script src="{{ url_for('bower.static',filename='angular-ui-grid/ui-grid.min.js') }}"></script>
+    <!-- SweetAlert JavaScript plugin (Alert messages) -->
+    <script src="{{ url_for('bower.static',filename='sweetalert/dist/sweetalert.min.js') }}"></script>
+    <!-- Bootstrap Waitingfor plugin (loading indicator) -->
+    <script src="{{ url_for('bower.static',filename='bootstrap-waitingfor/build/bootstrap-waitingfor.min.js') }}"></script>
+    <!-- Angular Formly (Forms) -->
+    <script src="{{ url_for('bower.static',filename='api-check/dist/api-check.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='angular-formly/dist/formly.min.js') }}"></script>
+    <script src="{{ url_for('bower.static',filename='angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js') }}"></script>
+    <!-- ngAnimate - AngularJS animations -->
+    <script src="{{ url_for('bower.static',filename='angular-animate/angular-animate.min.js') }}"></script>
+    <!-- Application -->
     <script src="{{ url_for('static',filename='application/app.js') }}"></script>
-    <script src="{{ url_for('static',filename='application/shared/services.js') }}"></script>
+    <script src="{{ url_for('static',filename='application/shared/api_services.js') }}"></script>
+    <script src="{{ url_for('static',filename='application/shared/ui_services.js') }}"></script>
     <script src="{{ url_for('static',filename='application/shared/filters.js') }}"></script>
     <script src="{{ url_for('static',filename='application/navbar/navbarCtrl.js') }}"></script>
     <script src="{{ url_for('static',filename='application/dashboard/dashboardCtrl.js') }}"></script>
