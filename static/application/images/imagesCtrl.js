@@ -1,6 +1,6 @@
-angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
-  controller('imagesCtrl',['$scope','$modal', 'Image','StartModal',
-             function($scope,$modal,Image,StartModal) {
+angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns','ngSanitize']).
+  controller('imagesCtrl',['$scope','$rootScope','$uibModal','Image','StartModal',
+             function($scope,$rootScope,$uibModal,Image,StartModal) {
 
     $scope.imagesGrid = {
                 columnDefs: [ { field: 'name',    enableHiding: false, enableSorting: true },
@@ -20,12 +20,26 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns']).
 		*  name: image name
 		*/
 		// TODO: Get the image info, process it using json-human, and present on the modal.
-		var modalInstance = $modal.open({
-                          animation: true,
-                          template: 'imageInfo.html',
-                          scope: $scope,
-                          size: 'lg',
-                        });
+		var private_im_scope = $rootScope.$new(false);
+		private_im_scope.name = name;
+		private_im_scope.id = id;
+		var modalInstance = $uibModal.open({ animation: true,
+										  templateUrl: 'imageInfo.html',
+										  animation: true,
+										  scope: private_im_scope,
+										  size: 'lg' });
+
+		modalInstance.rendered.then(function() {
+			// TODO: instead of image, use Inspect (create if not available)
+			Image.get({id: id}, function(value, responseHeaders) {
+				console.log(value);
+				var imageInfoArea = angular.element( document.querySelector('#imageInfoArea') );
+				var node = JsonHuman.format(value, { showArrayIndex: false });
+				imageInfoArea.append(node);
+			})
+		});
+
+
     };
     $scope.removeImage = function() {};
     $scope.openStartModalAction = function(id, name) {

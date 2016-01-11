@@ -47,13 +47,13 @@ angular.module('manager.services.ui', [])
        This is a menu which contains all the needed attributes to start / run an image.
        It takes the controller scope object on which it runs.
     */
-    .factory('StartModal', ['$modal','Container','LoadingModal','Alertbox',
-     function($modal,Container,LoadingModal,Alertbox) {
+    .factory('StartModal', ['$uibModal','Container','LoadingModal','Alertbox',
+     function($uibModal,Container,LoadingModal,Alertbox) {
             return {
                 run: function(scope,id,name) {
                        scope.selectedImageNameModalAction = name;
 
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                           animation: true,
                           templateUrl: 'static/application/shared/modals/startModal.html',
                           scope: scope,

@@ -13,7 +13,16 @@
 </script>
 <!-- ng-template for the image information modal -->
 <script type="text/ng-template" id="imageInfo.html">
-
+    <div class="modal-header">
+        <h4 class="modal-title">Image information on <b>{{name}} <small>({{id}})</small></b></h4>
+    </div>
+    <div class="modal-body">
+        <div id="imageInfoArea"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$close()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$dismiss()">Cancel</button>
+    </div>
 </script>
 <!-- =============================== End of Templates ====================================== -->
 
