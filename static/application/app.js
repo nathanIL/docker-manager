@@ -1,4 +1,4 @@
-angular.module('manager',['ngRoute','ngAnimate','ngResource','ui.bootstrap','manager.services.api','formly','formlyBootstrap',
+angular.module('manager',['ngRoute','ngAnimate','ngResource','ui.bootstrap','manager.services.api','formly','formlyBootstrap','manager.components.topology',
                           'manager.services.ui','manager.filters','manager.navbar','manager.components.dashboard','manager.components.images'])
 /* Config routes */
  .config(['$routeProvider', function($routeProvider) {
@@ -10,6 +10,10 @@ angular.module('manager',['ngRoute','ngAnimate','ngResource','ui.bootstrap','man
      .when('/images',{
         templateUrl: 'static/application/images/images.html',
         controller: 'imagesCtrl'
+     } )
+     .when('/topology',{
+        templateUrl: 'static/application/topology/topology.html',
+        controller: 'topologyCtrl'
      } )
      .otherwise({ redirectTo: '/' });
  } ])

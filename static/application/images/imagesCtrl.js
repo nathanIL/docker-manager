@@ -32,14 +32,11 @@ angular.module('manager.components.images',['ui.grid','ui.grid.resizeColumns','n
 		modalInstance.rendered.then(function() {
 			// TODO: instead of image, use Inspect (create if not available)
 			Image.get({id: id}, function(value, responseHeaders) {
-				console.log(value);
 				var imageInfoArea = angular.element( document.querySelector('#imageInfoArea') );
-				var node = JsonHuman.format(value, { showArrayIndex: false });
+				var node = JsonHuman.format(JSON.parse(JSON.stringify(value)), { showArrayIndex: false });
 				imageInfoArea.append(node);
 			})
 		});
-
-
     };
     $scope.removeImage = function() {};
     $scope.openStartModalAction = function(id, name) {
